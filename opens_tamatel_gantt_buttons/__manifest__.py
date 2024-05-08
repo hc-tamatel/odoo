@@ -8,7 +8,6 @@
     'website': "https://www.opens.cl",
     'version': '1.0.0',
     'depends': ['project_enterprise', 'web_gantt'],
-
     # always loaded
     'data': [
         'data/ir_config_parameter.xml',
@@ -17,7 +16,7 @@
 
     'assets': {
         'web.assets_backend': [
-            '/opens_tamatel_gantt_buttons/static/src/views/*/*',
+            'opens_tamatel_gantt_buttons/static/src/views/*',
         ],
     },
 

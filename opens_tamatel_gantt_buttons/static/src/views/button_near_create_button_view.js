@@ -7,7 +7,8 @@ import { ButtonNearCreateButtonController as Controller } from './button_near_cr
 export const ButtonNearCreateButtonView = {
     ...ganttView,
     Controller,
-    buttonTemplate: 'd_button_near_create_button.ButtonNearCreateButtonView.Buttons',
+    buttonTemplate: 'opens_tamatel_gantt_buttons.ButtonNearCreateButtonView.Buttons',
 };
 
 registry.category("views").add("button_near_create_button", ButtonNearCreateButtonView);
+

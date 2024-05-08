@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <templates id="template" xml:space="preserve">
 
-	<t t-name="d_button_near_create_button.ButtonNearCreateButtonView.Buttons" t-inherit="web_gantt.GanttView.Buttons" t-inherit-mode="primary" owl="1">
+	<t t-name="opens_tamatel_gantt_buttons.ButtonNearCreateButtonView.Buttons" t-inherit="web_gantt.GanttView.Buttons" t-inherit-mode="primary" owl="1">
 		<xpath expr="//div[hasclass('o_gantt_buttons_container')]" position="inside">
 			<button type="button" t-on-click="customGroup1" class="btn btn-primary">
 				Team's
