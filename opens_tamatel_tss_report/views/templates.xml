@@ -688,7 +688,7 @@
                     <td style="padding: 5px; border: 1px solid #ddd;">
                         <div style="text-align: center;">
                             <div class="especificaciones">
-                                <p>Materiales considerados: <span t-field="tss.x_studio_frente_rack_odf_n4"/></p>
+                                <p>Materiales considerados: <span t-field="tss.x_studio_materiales_considerados_2"/></p>
                             </div>
 
                         </div>
