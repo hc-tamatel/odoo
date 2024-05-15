@@ -11,7 +11,7 @@ export class ButtonNearCreateButtonController extends GanttController {
 
 	async customGroup1() {
 //		await this.orm.call('project.task', 'action_open_gantt_task_view', [], {}); // this one call a python method that we define in the project model
-		const action = await this.orm.call('project.task', 'custom_group_1', [], {'context': this.props.context});
+		const action = await this.orm.call('project.task', 'custom_group_1', [], {});
         this.actionService.doAction(action);
 //		await this.model.root.load();
 //		this.model.notify();
@@ -19,7 +19,7 @@ export class ButtonNearCreateButtonController extends GanttController {
 
 		async customGroup2() {
 //		await this.orm.call('project.task', 'action_open_gantt_task_view', [], {}); // this one call a python method that we define in the project model
-		const action = await this.orm.call('project.task', 'custom_group_2', [], {'context': this.props.context});
+		const action = await this.orm.call('project.task', 'custom_group_2', [], {});
         this.actionService.doAction(action);
 //		await this.model.root.load();
 //		this.model.notify();
@@ -27,7 +27,7 @@ export class ButtonNearCreateButtonController extends GanttController {
 
 		async customGroup3() {
 //		await this.orm.call('project.task', 'action_open_gantt_task_view', [], {}); // this one call a python method that we define in the project model
-		const action = await this.orm.call('project.task', 'custom_group_3', [], {'context': this.props.context});
+		const action = await this.orm.call('project.task', 'custom_group_3', [], {});
         this.actionService.doAction(action);
 //		await this.model.root.load();
 //		this.model.notify();

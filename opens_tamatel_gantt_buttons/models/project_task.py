@@ -9,28 +9,17 @@ class ProjectTask(models.Model):
         """
         This method will be called from button that we have created using owl js
         """
-        context = dict(self.env.context)
-        group_filter = self.env['ir.config_parameter'].sudo().get_param('gantt_group_by_button_field_1', 'project')
-        context.update({
-            f'search_default_{group_filter}': 1,
-            'default_scale': 'week', })
+        field = self.env['ir.config_parameter'].get_param('gantt_group_by_button_field_1', 'project_id')
         return {
             'name': 'Tareas',
                     'type': 'ir.actions.act_window',
-                    'view_mode': 'gantt,kanban,tree,form,calendar,map,pivot,graph,activity',
+                    'view_mode': 'gantt',
                     'res_model': 'project.task',
                     'target': 'current',
-                    'views': [(False, 'gantt'),
-                              (False, 'kanban'),
-                              (False, 'tree'),
-                              (False, 'form'),
-                              (False, 'calendar'),
-                              (False, 'map'),
-                              (False, 'pivot'),
-                              (False, 'graph'),
-                              (False, 'activity'),
-                              ],
-                    'context': context
+                    'views': [(self.env.ref('project_enterprise.project_task_view_gantt').id, 'gantt')],
+                    'context': {'search_default_open_tasks': 1,
+                                'default_scale':'week',
+                                'group_by': field}
         }
 
     @api.model
@@ -38,29 +27,17 @@ class ProjectTask(models.Model):
         """
         This method will be called from button that we have created using owl js
         """
-        context = dict(self.env.context)
-        group_filter = self.env['ir.config_parameter'].sudo().get_param('gantt_group_by_button_field_2', 'user')
-        context.update({
-            f'search_default_{group_filter}': 1,
-            'default_scale':'week',})
+        field = self.env['ir.config_parameter'].get_param('gantt_group_by_button_field_2', 'user_ids')
         return {
             'name': 'Tareas',
                     'type': 'ir.actions.act_window',
-                    'view_mode': 'gantt,kanban,tree,form,calendar,map,pivot,graph,activity',
+                    'view_mode': 'gantt',
                     'res_model': 'project.task',
                     'target': 'current',
-                    'views': [(False, 'gantt'),
-                              (False, 'kanban'),
-                              (False, 'tree'),
-                              (False, 'form'),
-                              (False, 'calendar'),
-                              (False, 'map'),
-                              (False, 'pivot'),
-                              (False, 'graph'),
-                              (False, 'activity'),
-
-                              ],
-                    'context': context
+                    'views': [(self.env.ref('project_enterprise.project_task_view_gantt').id, 'gantt')],
+                    'context': {'search_default_open_tasks': 1,
+                                'default_scale': 'week',
+                                'group_by': field}
         }
 
     @api.model
@@ -68,28 +45,16 @@ class ProjectTask(models.Model):
         """
         This method will be called from button that we have created using owl js
         """
-        context = dict(self.env.context)
-        group_filter_1 = self.env['ir.config_parameter'].sudo().get_param('gantt_group_by_button_field_2', 'project')
-        group_filter_2 = self.env['ir.config_parameter'].sudo().get_param('gantt_group_by_button_field_1', 'user')
-        context.update({
-            f'search_default_{group_filter_1}': 1,
-            f'search_default_{group_filter_2}': 1,
-            'default_scale': 'week', })
+        field_1 = self.env['ir.config_parameter'].get_param('gantt_group_by_button_field_2', 'project_id')
+        field_2 = self.env['ir.config_parameter'].get_param('gantt_group_by_button_field_1', 'user_ids')
         return {
             'name': 'Tareas',
             'type': 'ir.actions.act_window',
-            'view_mode': 'gantt,kanban,tree,form,calendar,map,pivot,graph,activity',
+            'view_mode': 'gantt',
             'res_model': 'project.task',
             'target': 'current',
-            'views': [(False, 'gantt'),
-                              (False, 'kanban'),
-                              (False, 'tree'),
-                              (False, 'form'),
-                              (False, 'calendar'),
-                              (False, 'map'),
-                              (False, 'pivot'),
-                              (False, 'graph'),
-                              (False, 'activity'),
-                              ],
-            'context': context
+            'views': [(self.env.ref('project_enterprise.project_task_view_gantt').id, 'gantt')],
+            'context': {'search_default_open_tasks': 1,
+                        'default_scale': 'week',
+                        'group_by': [field_1, field_2]}
         }
