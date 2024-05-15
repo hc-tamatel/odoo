@@ -2,12 +2,12 @@
 <odoo>
 	<record id="gantt_group_by_button_field_1" model="ir.config_parameter">
 		<field name="key">gantt_group_by_button_field_1</field>
-		<field name="value">project_id</field>
+		<field name="value">project</field>
 	</record>
 
 	<record id="gantt_group_by_button_field_2" model="ir.config_parameter">
 		<field name="key">gantt_group_by_button_field_2</field>
-		<field name="value">user_ids</field>
+		<field name="value">user</field>
 	</record>
 
 </odoo>
