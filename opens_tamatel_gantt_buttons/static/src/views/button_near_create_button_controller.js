@@ -3,6 +3,7 @@
 import { useService } from "@web/core/utils/hooks";
 import { GanttController } from "@web_gantt/gantt_controller";
 
+
 export class ButtonNearCreateButtonController extends GanttController {
 	setup() {
 		super.setup();
@@ -10,26 +11,25 @@ export class ButtonNearCreateButtonController extends GanttController {
 	}
 
 	async customGroup1() {
-//		await this.orm.call('project.task', 'action_open_gantt_task_view', [], {}); // this one call a python method that we define in the project model
-		const action = await this.orm.call('project.task', 'custom_group_1', [], {});
-        this.actionService.doAction(action);
+		const groupName = await this.orm.call('project.task', 'custom_group_1', [],);
+//        this.actionService.doAction(action);
+        const filter = this.env.searchModel.getSearchItems().filter(item => item.fieldName == groupName && item.type == 'groupBy');
+        this.env.searchModel.toggleSearchItem(filter[0].id);
+
 //		await this.model.root.load();
 //		this.model.notify();
 	}
 
 		async customGroup2() {
-//		await this.orm.call('project.task', 'action_open_gantt_task_view', [], {}); // this one call a python method that we define in the project model
-		const action = await this.orm.call('project.task', 'custom_group_2', [], {});
-        this.actionService.doAction(action);
-//		await this.model.root.load();
-//		this.model.notify();
+		const groupName = await this.orm.call('project.task', 'custom_group_2', [],);
+		const filter = this.env.searchModel.getSearchItems().filter(item => item.fieldName == groupName && item.type == 'groupBy');
+        this.env.searchModel.toggleSearchItem(filter[0].id);
+
 	}
 
 		async customGroup3() {
-//		await this.orm.call('project.task', 'action_open_gantt_task_view', [], {}); // this one call a python method that we define in the project model
-		const action = await this.orm.call('project.task', 'custom_group_3', [], {});
+		const action = await this.orm.call('project.task', 'custom_group_3', [], {'context': this.props.context});
         this.actionService.doAction(action);
-//		await this.model.root.load();
-//		this.model.notify();
+
 	}
 }

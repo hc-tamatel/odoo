@@ -9,9 +9,9 @@
 			<button type="button" t-on-click="customGroup2" class="btn btn-primary">
 				Ventana
 			</button>
-			<button type="button" t-on-click="customGroup3" class="btn btn-primary">
-				Ventana y Team's
-			</button>
+<!--			<button type="button" t-on-click="customGroup3" class="btn btn-primary">-->
+<!--				Ventana y Team's-->
+<!--			</button>-->
 		</xpath>
 	</t>
 

@@ -234,7 +234,9 @@
 
 
                 <!-- Página 3 -->
-
+                <div style="text-align: center;">
+                <h3>Acceso a sitio</h3>
+                </div>
                 <table  class="img-table">
                      <tr>
                       <td style="text-align: center;padding: 5px; border: 1px solid #ddd;width:50%;">Interior Sala N°2</td>
@@ -446,7 +448,9 @@
                 <div style="page-break-after: always;"></div>
 
             <!-- Página 5 -->
-
+                <div style="text-align: center;">
+                <h3>Disponibilidad de espacio</h3>
+                </div>
                 <table class="img-table">
 
                 <tr class="img-row">
@@ -1034,7 +1038,9 @@
 
 
            <!-- Página 12 -->
-
+                <div style="text-align: center;">
+                <h3>Proyección canaletas ópticas y escalerillas</h3>
+                </div>
                 <table class="img-table">
                 <tr class="img-row">
                 <td style="padding: 5px; border: 1px solid #ddd;width:50%;">
@@ -1183,7 +1189,9 @@
                 <div style="page-break-after: always;"></div>
 
              <!-- Página 14 -->
-
+                <div style="text-align: center;">
+                <h3>Proyección canaletas ópticas y escalerillas</h3>
+                </div>
                 <table class="img-table">
                 <tr class="img-row">
                 <td style="padding: 5px; border: 1px solid #ddd;width:50%;">
@@ -1405,7 +1413,9 @@
 
                 <div style="page-break-after: always;"></div>
              <!-- Página 17 -->
-
+                <div style="text-align: center;">
+                <h3>Red de gestión</h3>
+                </div>
                 <table class="img-table">
                 <tr class="img-row">
                 <td style="padding: 5px; border: 1px solid #ddd;width:50%;">
@@ -1498,7 +1508,7 @@
         </record>
 
         <record id="action_report_tss" model="ir.actions.report">
-            <field name="name">Reporte TSS - Nuevo</field>
+            <field name="name">Reporte</field>
             <field name="model">project.task</field>
             <field name="report_type">qweb-pdf</field>
             <field name="report_name">opens_tamatel_tss_report.report_tss</field>
