@@ -6,7 +6,7 @@
     """,
     'author': "Open Solutions",
     'website': "https://www.opens.cl",
-    'version': '1.0.1',
+    'version': '1.0.2',
     'depends': ['project_enterprise', 'web_gantt'],
     # always loaded
     'data': [
