@@ -1,0 +1,1528 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <template id="report_tss" name="Reporte TSS">
+
+              <t t-call="web.html_container">
+
+
+                <t t-call="web.external_layout">
+                <t t-foreach="docs" t-as="o">
+                <t t-set="o" t-value="o.with_context({'lang': 'es_CL'})"/>
+
+                <!-- Estilos -->
+                <style type="text/css">
+                .img-title{
+                padding:6px;
+                width:100%;
+                display: block;
+                }
+
+                .img-table{
+                width:80%;
+                margin:auto;
+
+                }
+
+                .image{
+                max-width: 350px;
+                max-height: 200px;
+                display: block;
+                margin: 0 auto;
+                <!--object-fit: contain;-->
+                }
+                .ficha > tr>td{
+                width:33%;
+                }
+
+                .ficha{
+                width:80%;
+                margin:auto;
+                }
+
+                .ficha-titulo {
+                text-align: center;
+                font-size:25px;
+                padding:5px;
+                font-weight: lighter;
+                }
+                .ficha-contenido {
+                font-size:15px;
+                padding:5px;
+                text-align: center;
+                font-weight: lighter;
+                }
+                .especificaciones{
+                font-size:15px;
+                font-weight: lighter;
+                }
+
+                .img-row{
+                height:250px;
+                }
+
+                </style>
+                <t t-set="tss" t-value="request.env['x_project_task_worksheet_template_23'].search([('x_project_task_id', '=', o.id)])"/>
+                <!-- Página 1 -->
+                <table class="ficha">
+                <tr >
+                    <td colspan="3" style="text-align: center;"><h3>Antecedentes generales</h3></td>
+                </tr>
+                <tr>
+                    <td style="width:33%">
+                        <div class="ficha-titulo">Título:</div>
+                        <div class="ficha-contenido"><span t-field="o.name"/></div>
+                    </td>
+                    <td style="width:33%">
+                        <div class="ficha-titulo">Sitio de actividad:</div>
+                        <div class="ficha-contenido">
+                                <span t-esc="', '.join(o.x_studio_sitios_de_actividad.mapped('x_name'))"/>,
+                            </div>
+                    </td>
+                    <td style="width:33%">
+                        <div class="ficha-titulo">Proyecto:</div>
+                        <div class="ficha-contenido"><span t-field="o.project_id"/>
+                    </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="ficha-titulo">Supervisor:</div>
+                        <div class="ficha-contenido"><span t-field="o.x_studio_supervisor"/></div>
+                    </td>
+                    <td>
+                        <div class="ficha-titulo">Región:</div>
+                        <div class="ficha-contenido"><span t-field="o.x_studio_regin"/></div>
+                    </td>
+                    <td>
+                        <div class="ficha-titulo">Sub-Proyecto:</div>
+                        <div class="ficha-contenido"><span t-field="o.x_studio_sub_proyecto"/></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="ficha-titulo">Área:</div>
+                        <div class="ficha-contenido"><span t-field="o.x_studio_area"/></div>
+                    </td>
+                    <td>
+                        <div class="ficha-titulo">Hito:</div>
+                        <div class="ficha-contenido"><span t-field="o.x_studio_hito"/></div>
+                    </td>
+                    <td>
+                        <div class="ficha-titulo">Proyecto Macro:</div>
+                        <div class="ficha-contenido"><span t-field="o.x_studio_proyecto_macro"/></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="ficha-titulo">Descripción</div>
+                        <div class="ficha-contenido" style="font-size:0.7rem"><span t-field="o.description"/></div>
+                    </td>
+                    <td>
+                        <div class="ficha-titulo">Detalle de la actividad:</div>
+                        <div class="ficha-contenido"><span t-field="o.x_studio_detalle_de_la_actividad_1"/></div>
+                    </td>
+                    <td>
+                        <div class="ficha-titulo">Reporte Final:</div>
+                        <div class="ficha-contenido"><span t-field="o.x_studio_reporte_final"/></div>
+                    </td>
+                </tr>
+
+                </table>
+
+                <div style="page-break-after: always;"></div>
+
+
+                <!-- Página 2 -->
+
+                <div style="text-align: center;">
+                <h3>Acceso a sitio</h3>
+                </div>
+                <table class="img-table">
+                     <tr>
+                      <td style="text-align: center;padding: 5px; border: 1px solid #ddd;width:50%;">Exterior</td>
+                       <td style="text-align: center;padding: 5px; border: 1px solid #ddd;width:50%;">Interior</td>
+                    </tr>
+                <tr class="img-row">
+                <td style="padding: 5px; border: 1px solid #ddd;width:50%;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Acceso a sitio
+                        </div>
+                        <img t-if="tss.x_studio_acceso_a_sitio" t-att-src="image_data_uri(tss.x_studio_acceso_a_sitio)" class="image"/>
+
+                    </div>
+                </td>
+                <!-- Repite este bloque para cada imagen/título -->
+                <td style="padding: 5px; border: 1px solid #ddd;width:50%;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Interior Sala equipos - Foto N°1
+                        </div>
+                        <img t-if="tss.x_studio_interior_sala_equipos_n1" t-att-src="image_data_uri(tss.x_studio_interior_sala_equipos_n1)" class="image"/>
+                    </div>
+                </td>
+                </tr>
+
+                <tr class="img-row">
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Acceso a Sala Foto N°1
+                        </div>
+                        <img t-if="tss.x_studio_acceso_a_sala_foto_n1" t-att-src="image_data_uri(tss.x_studio_acceso_a_sala_foto_n1)" class="image"/>
+
+                    </div>
+                </td>
+                <!-- Repite este bloque para cada imagen/título -->
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Interior Sala equipos - Foto N°2
+                        </div>
+                        <img t-if="tss.x_studio_interior_sala_equipos_n2" t-att-src="image_data_uri(tss.x_studio_interior_sala_equipos_n2)" class="image"/>
+                    </div>
+                </td>
+                </tr>
+
+                <tr class="img-row">
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Acceso a Sala Foto N°2
+                        </div>
+                        <img t-if="tss.x_studio_acceso_a_sala_foto_n2" t-att-src="image_data_uri(tss.x_studio_acceso_a_sala_foto_n2)" class="image"/>
+
+                    </div>
+                </td>
+                <!-- Repite este bloque para cada imagen/título -->
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Layout Sala
+                        </div>
+                        <img t-if="tss.x_studio_interior_sala_equipos_n3" t-att-src="image_data_uri(tss.x_studio_interior_sala_equipos_n3)" class="image"/>
+                    </div>
+                </td>
+                </tr>
+
+                <tr>
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            <p>Nombre del sitio: <span t-field="tss.x_studio_nombre_sitio_1"/></p>
+                            <p>Dirección del sitio <span t-field="tss.x_studio_direccin_del_sitio"/></p>
+                            <p>Observaciones: <span t-field="tss.x_studio_nombre_sala"/></p>
+                        </div>
+
+                    </div>
+                </td>
+                <!-- Repite este bloque para cada imagen/título -->
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+                        <div class="especificaciones">
+                            <p>Altura (m): <span t-field="tss.x_studio_altura_m_2"/></p>
+                            <p>Largo (m): <span t-field="tss.x_studio_largo_m_2"/></p>
+                            <p>Ancho: (m): <span t-field="tss.x_studio_ancho_m"/></p>
+                            <p>Altura piso a escalerillas: <span t-field="tss.x_studio_altura_piso_a_escalerilla_1"/></p>
+                        </div>
+
+                    </div>
+                </td>
+                </tr>
+
+                </table>
+
+
+                <div style="page-break-after: always;"></div>
+
+
+                <!-- Página 3 -->
+                <div style="text-align: center;">
+                <h3>Acceso a sitio</h3>
+                </div>
+                <table  class="img-table">
+                     <tr>
+                      <td style="text-align: center;padding: 5px; border: 1px solid #ddd;width:50%;">Interior Sala N°2</td>
+                       <td style="text-align: center;padding: 5px; border: 1px solid #ddd;width:50%;">Layouts Salas</td>
+                    </tr>
+                <tr class="img-row">
+                <td style="padding: 5px; border: 1px solid #ddd;width:50%;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Interior Sala Equipos – Foto N°1
+                        </div>
+                        <img t-if="tss.x_studio_interior_sala_equipos_foto_n1" t-att-src="image_data_uri(tss.x_studio_interior_sala_equipos_foto_n1)" class="image"/>
+
+                    </div>
+                </td>
+                <!-- Repite este bloque para cada imagen/título -->
+                <td style="padding: 5px; border: 1px solid #ddd;width:50%;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Diagrama de Sala N°1
+                        </div>
+                        <img t-if="tss.x_studio_diagrama_de_planta_inicial" t-att-src="image_data_uri(tss.x_studio_diagrama_de_planta_inicial)" class="image"/>
+                    </div>
+                </td>
+                </tr>
+
+                <tr class="img-row">
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Interior Sala Equipos – Foto N°2
+                        </div>
+                        <img t-if="tss.x_studio_interior_sala_equipos_foto_n2" t-att-src="image_data_uri(tss.x_studio_interior_sala_equipos_foto_n2)" class="image"/>
+
+                    </div>
+                </td>
+                <!-- Repite este bloque para cada imagen/título -->
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Diagrama de Sala N°2
+                        </div>
+                        <img t-if="tss.x_studio_diagrama_de_sala_n2" t-att-src="image_data_uri(tss.x_studio_diagrama_de_sala_n2)" class="image"/>
+                    </div>
+                </td>
+                </tr>
+
+                <tr class="img-row">
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Acceso a Sala – Foto N°2
+                        </div>
+                        <img t-if="tss.x_studio_interior_sala_equipos_foto_n3" t-att-src="image_data_uri(tss.x_studio_interior_sala_equipos_foto_n3)" class="image"/>
+
+                    </div>
+                </td>
+                <!-- Repite este bloque para cada imagen/título -->
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+
+                    </div>
+                </td>
+                </tr>
+
+                <tr class="img-row">
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+                        <div class="especificaciones">
+                            <p>Altura (m): <span t-field="tss.x_studio_altura_m"/></p>
+                            <p>Largo (m): <span t-field="tss.x_studio_largo_m"/></p>
+                            <p>Ancho: (m): <span t-field="tss.x_studio_largo_m_1"/></p>
+                            <p>Altura piso a escalerillas: <span t-field="tss.x_studio_altura_piso_a_escalerilla"/></p>
+                        </div>
+
+                    </div>
+                </td>
+                <!-- Repite este bloque para cada imagen/título -->
+                <td style="padding: 5px; border: 1px solid #ddd;">
+
+                </td>
+                </tr>
+
+                </table>
+
+                <div style="page-break-after: always;"></div>
+
+            <!-- Página 4 -->
+
+                <div style="text-align: center;">
+                <h3>Disponibilidad de espacio</h3>
+                </div>
+                <table class="img-table">
+                     <tr>
+                      <td style="text-align: center;padding: 5px; border: 1px solid #ddd;width:50%;">Espacio disponible N°1</td>
+                       <td style="text-align: center;padding: 5px; border: 1px solid #ddd;width:50%;">Espacio disponible N°2</td>
+                    </tr>
+
+
+                <tr>
+                    <td style="padding: 5px; border: 1px solid #ddd;width:50%;">
+                        <div style="text-align: center;">
+                            <div class="img-title">
+                                Equipo Por Instalar: <span t-field="tss.x_studio_equipo_a_instalar"></span>
+                            </div>
+
+                        </div>
+                    </td>
+                    <!-- Repite este bloque para cada imagen/título -->
+                    <td style="padding: 5px; border: 1px solid #ddd;width:50%;">
+                        <div style="text-align: center;">
+                            <div class="img-title">
+                                Equipo Por Instalar: <span t-field="tss.x_studio_equipo_a_instalar_1"></span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="img-row">
+                <td style="padding: 5px; border: 1px solid #ddd;width:50%;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Vista General
+                        </div>
+                        <img t-if="tss.x_studio_espacio_disponible_n1" t-att-src="image_data_uri(tss.x_studio_espacio_disponible_n1)" class="image"/>
+
+                    </div>
+                </td>
+                <!-- Repite este bloque para cada imagen/título -->
+                <td style="padding: 5px; border: 1px solid #ddd;width:50%;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Vista General
+                        </div>
+                        <img t-if="tss.x_studio_binary_field_53d_1hfqp5ni1" t-att-src="image_data_uri(tss.x_studio_binary_field_53d_1hfqp5ni1)" class="image"/>
+                    </div>
+                </td>
+                </tr>
+
+                <tr class="img-row">
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Espacio disponible – Marca cinta de reserva
+                        </div>
+                        <img t-if="tss.x_studio_espacio_disponible_n2" t-att-src="image_data_uri(tss.x_studio_espacio_disponible_n2)" class="image"/>
+
+                    </div>
+                </td>
+                <!-- Repite este bloque para cada imagen/título -->
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Espacio disponible – Marca cinta de reserva
+                        </div>
+                        <img t-if="tss.x_studio_binary_field_8hf_1hfqp7tu9" t-att-src="image_data_uri(tss.x_studio_binary_field_8hf_1hfqp7tu9)" class="image"/>
+                    </div>
+                </td>
+                </tr>
+
+                <tr class="img-row">
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Foto con medidas disponibles (Ancho)
+                        </div>
+                        <img t-if="tss.x_studio_espacio_disponible_n3" t-att-src="image_data_uri(tss.x_studio_espacio_disponible_n3)" class="image"/>
+
+                    </div>
+                </td>
+                <!-- Repite este bloque para cada imagen/título -->
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Foto con medidas disponibles (Ancho)
+                        </div>
+                        <img t-if="tss.x_studio_binary_field_57e_1hfqp87sh" t-att-src="image_data_uri(tss.x_studio_binary_field_57e_1hfqp87sh)" class="image"/>
+                    </div>
+                </td>
+                </tr>
+
+                <tr>
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+                        <div class="especificaciones">
+                            <p>Nombre del sitio: <span t-field="tss.x_studio_nombre_sitio_1"/></p>
+                            <p>Dirección del sitio <span t-field="tss.x_studio_direccin_del_sitio"/></p>
+                            <p>Observaciones: <span t-field="tss.x_studio_nombre_sala"/></p>
+                        </div>
+
+                    </div>
+                </td>
+                <!-- Repite este bloque para cada imagen/título -->
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+                        <div class="especificaciones">
+                            <p>Altura (m): <span t-field="tss.x_studio_altura_m_2"/></p>
+                            <p>Largo (m): <span t-field="tss.x_studio_largo_m_2"/></p>
+                            <p>Ancho: (m): <span t-field="tss.x_studio_ancho_m"/></p>
+                            <p>Altura piso a escalerillas: <span t-field="tss.x_studio_altura_piso_a_escalerilla_1"/></p>
+                        </div>
+
+                    </div>
+                </td>
+                </tr>
+
+                </table>
+
+
+                <div style="page-break-after: always;"></div>
+
+            <!-- Página 5 -->
+                <div style="text-align: center;">
+                <h3>Disponibilidad de espacio</h3>
+                </div>
+                <table class="img-table">
+
+                <tr class="img-row">
+                <td style="padding: 5px; border: 1px solid #ddd;width:50%;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Foto con medidas disponibles (Alto)
+                        </div>
+                        <img t-if="tss.x_studio_foto_con_medidas_disponibles_opcin_n1_alto" t-att-src="image_data_uri(tss.x_studio_foto_con_medidas_disponibles_opcin_n1_alto)" class="image"/>
+
+                    </div>
+                </td>
+                <!-- Repite este bloque para cada imagen/título -->
+                <td style="padding: 5px; border: 1px solid #ddd;width:50%;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Foto con medidas disponibles (Alto)
+                        </div>
+                        <img t-if="tss.x_studio_foto_con_medidas_disponibles_opcin_n2_alto" t-att-src="image_data_uri(tss.x_studio_foto_con_medidas_disponibles_opcin_n2_alto)" class="image"/>
+                    </div>
+                </td>
+                </tr>
+
+                <tr>
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+                        <div class="especificaciones">
+                            <p>Modelo de equipo: <span t-field="tss.x_studio_modelo_de_equipo_1"/></p>
+                            <p>Altura: <span t-field="tss.x_studio_altura"/></p>
+                            <p>Profundidad: <span t-field="tss.x_studio_profundidad"/></p>
+                            <p>Ancho: <span t-field="tss.x_studio_ancho"/></p>
+                            <p>Observaciones: <span t-field="tss.x_studio_observaciones_7"/></p>
+                        </div>
+
+                    </div>
+                </td>
+                <!-- Repite este bloque para cada imagen/título -->
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+                        <div class="especificaciones">
+                            <p>Modelo de equipo: <span t-field="tss.x_studio_modelo_de_equipo_2"/></p>
+                            <p>Altura: <span t-field="tss.x_studio_altura_1"/></p>
+                            <p>Profundidad: <span t-field="tss.x_studio_profundidad_1"/></p>
+                            <p>Ancho: <span t-field="tss.x_studio_ancho_1"/></p>
+                            <p>Observaciones: <span t-field="tss.x_studio_observaciones_8"/></p>
+                        </div>
+
+                    </div>
+                </td>
+                </tr>
+
+                </table>
+
+
+                <div style="page-break-after: always;"></div>
+
+            <!-- Página 6 -->
+
+                <div style="text-align: center;">
+                <h3>Fijación Equipamiento</h3>
+                </div>
+                <table class="img-table">
+                     <tr>
+                      <td style="text-align: center;padding: 5px; border: 1px solid #ddd;width:50%;">Fijación equipamiento N°1</td>
+                       <td style="text-align: center;padding: 5px; border: 1px solid #ddd;width:50%;">Fijación equipamiento N°2</td>
+                    </tr>
+                <tr class="img-row">
+                <td style="padding: 5px; border: 1px solid #ddd;width:50%;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Base Antisísmica – Foto N°1:
+                        </div>
+                        <img t-if="tss.x_studio_base_antissmica" t-att-src="image_data_uri(tss.x_studio_base_antissmica)" class="image"/>
+
+                    </div>
+                </td>
+                <!-- Repite este bloque para cada imagen/título -->
+                <td style="padding: 5px; border: 1px solid #ddd;width:50%;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Base Antisísmica – Foto N°1
+                        </div>
+                        <img t-if="tss.x_studio_base_antissmica_n2" t-att-src="image_data_uri(tss.x_studio_base_antissmica_n2)" class="image"/>
+                    </div>
+                </td>
+                </tr>
+
+                <tr class="img-row">
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Base Antisísmica – Foto N°2
+                        </div>
+                        <img t-if="tss.x_studio_base_antissmica_foto_n2" t-att-src="image_data_uri(tss.x_studio_base_antissmica_foto_n2)" class="image"/>
+
+                    </div>
+                </td>
+                <!-- Repite este bloque para cada imagen/título -->
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Base Antisísmica – Foto N°2
+                        </div>
+                        <img t-if="tss.x_studio_base_antissmica_n2_foto_n2" t-att-src="image_data_uri(tss.x_studio_base_antissmica_n2_foto_n2)" class="image"/>
+                    </div>
+                </td>
+                </tr>
+
+                <tr class="img-row">
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Proyección Base Antisísmica
+                        </div>
+                        <img t-if="tss.x_studio_bosquejo_proyeccin_base_antissmica" t-att-src="image_data_uri(tss.x_studio_bosquejo_proyeccin_base_antissmica)" class="image"/>
+
+                    </div>
+                </td>
+                <!-- Repite este bloque para cada imagen/título -->
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Proyección Base Antisísmica
+                        </div>
+                        <img t-if="tss.x_studio_bosquejo_proyeccin_base_antissmica_1" t-att-src="image_data_uri(tss.x_studio_bosquejo_proyeccin_base_antissmica_1)" class="image"/>
+                    </div>
+                </td>
+                </tr>
+
+                <tr>
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+                        <div class="especificaciones">
+                            <p>Observaciones: <span t-field="tss.x_studio_observaciones_1"/></p>
+                            <p>Materiales considerados: <span t-field="tss.x_studio_materiales_considerados_10"/></p>
+                        </div>
+
+                    </div>
+                </td>
+                <!-- Repite este bloque para cada imagen/título -->
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+                        <div class="especificaciones">
+                            <p>Observaciones: <span t-field="tss.x_studio_materiales_considerados_1"/></p>
+                            <p>Materiales considerados: <span t-field="tss.x_studio_materiales_considerados_11"/></p>
+                        </div>
+
+                    </div>
+                </td>
+                </tr>
+
+                </table>
+
+
+                <div style="page-break-after: always;"></div>
+
+
+                <!-- Página 7 -->
+
+                <div style="text-align: center;">
+                    <h3>ODF de Linea/Troncal</h3>
+                </div>
+                <table class="img-table">
+                     <tr>
+                        <td style="text-align: center;padding: 5px; border: 1px solid #ddd;width:50%;">ODF dirección de línea N°1</td>
+                        <td style="text-align: center;padding: 5px; border: 1px solid #ddd;width:50%;">Fijación equipamiento N°2</td>
+                    </tr>
+
+                <tr>
+                    <td style="padding: 5px; border: 1px solid #ddd;width:50%;">
+                        <div style="text-align: center;">
+                            <div class="img-title">
+                                Nombre del Rack ODF: <span t-field="tss.x_studio_nombre_del_rack_odf"/>
+                            </div>
+
+                        </div>
+                    </td>
+                    <!-- Repite este bloque para cada imagen/título -->
+                    <td style="padding: 5px; border: 1px solid #ddd;width:50%;">
+                        <div style="text-align: center;">
+                            <div class="img-title">
+                                Nombre del Rack ODF: <span t-field="tss.x_studio_nombre_del_rack_odf_1"/>
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+                <tr class="img-row">
+                    <td style="padding: 5px; border: 1px solid #ddd;width:50%;">
+                        <div style="text-align: center;">
+                            <div class="img-title">
+                                Vista frontal rack ODF completo N°1
+                            </div>
+                            <img t-if="tss.x_studio_frente_rack_odf_n1" t-att-src="image_data_uri(tss.x_studio_frente_rack_odf_n1)" class="image"/>
+                        </div>
+                    </td>
+                    <!-- Repite este bloque para cada imagen/título -->
+                    <td style="padding: 5px; border: 1px solid #ddd;width:50%;">
+                        <div style="text-align: center;">
+                            <div class="img-title">
+                                Vista frontal rack ODF completo N°1
+                            </div>
+                            <img t-if="tss.x_studio_frente_rack_odf_n3" t-att-src="image_data_uri(tss.x_studio_frente_rack_odf_n3)" class="image"/>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr class="img-row">
+                    <td style="padding: 5px; border: 1px solid #ddd;width:50%;">
+                        <div style="text-align: center;">
+                            <div class="img-title">
+                                Foto de Rack ODF Abierto
+                            </div>
+                            <img t-if="tss.x_studio_frente_rack_odf_n2" t-att-src="image_data_uri(tss.x_studio_frente_rack_odf_n2)" class="image"/>
+
+                        </div>
+                    </td>
+                    <!-- Repite este bloque para cada imagen/título -->
+                    <td style="padding: 5px; border: 1px solid #ddd;width:50%;">
+                        <div style="text-align: center;">
+                            <div class="img-title">
+                                Foto de Rack ODF Abierto
+                            </div>
+                            <img t-if="tss.x_studio_frente_rack_odf_n4" t-att-src="image_data_uri(tss.x_studio_frente_rack_odf_n4)" class="image"/>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="padding: 5px; border: 1px solid #ddd;width:50%;">
+                        <div style="text-align: center;">
+                            <div class="especificaciones">
+                                <p>Materiales considerados: <span t-field="tss.x_studio_observaciones_2"/></p>
+                            </div>
+
+                        </div>
+                    </td>
+                    <!-- Repite este bloque para cada imagen/título -->
+                    <td style="padding: 5px; border: 1px solid #ddd;">
+                        <div style="text-align: center;">
+                            <div class="especificaciones">
+                                <p>Materiales considerados: <span t-field="tss.x_studio_materiales_considerados_2"/></p>
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+
+                </table>
+
+
+                <div style="page-break-after: always;"></div>
+
+
+                <!-- Página 8 -->
+
+                <div style="text-align: center;">
+                <h3>ODF de Local/Reflejo</h3>
+                </div>
+                <table class="img-table">
+                     <tr>
+                      <td style="text-align: center;padding: 5px; border: 1px solid #ddd;width:50%;">Plano A</td>
+                       <td style="text-align: center;padding: 5px; border: 1px solid #ddd;width:50%;">Plano B</td>
+                    </tr>
+                    <tr>
+                    <td style="padding: 5px; border: 1px solid #ddd;width:50%;">
+                        <div style="text-align: center;">
+                            <div class="img-title">
+                                Nombre ODF: <span t-field="tss.x_studio_nombre_odf"/><br/>
+                                Nombre Rack: <span t-field="tss.x_studio_nombre_rack"/>
+                            </div>
+
+                        </div>
+                    </td>
+                    <td style="padding: 5px; border: 1px solid #ddd;width:50%;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Nombre ODF: <span t-field="tss.x_studio_nombre_odf_1"/><br/>
+                            Nombre Rack: <span t-field="tss.x_studio_char_field_8th_1hfqqadur"/>
+                        </div>
+                    </div>
+                </td>
+                </tr>
+                <tr class="img-row">
+                <td style="padding: 5px; border: 1px solid #ddd;width:50%;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Foto frontal Rack Completo
+                        </div>
+                        <img t-if="tss.x_studio_rack" t-att-src="image_data_uri(tss.x_studio_rack)" class="image"/>
+
+                    </div>
+                </td>
+                <!-- Repite este bloque para cada imagen/título -->
+                <td style="padding: 5px; border: 1px solid #ddd;width:50%;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+
+                            Foto frontal Rack Completo
+                        </div>
+                        <img t-if="tss.x_studio_rack_2" t-att-src="image_data_uri(tss.x_studio_rack_2)" class="image"/>
+                    </div>
+                </td>
+                </tr>
+
+                <tr class="img-row">
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Foto ODF Reflejo
+                        </div>
+                        <img t-if="tss.x_studio_foto_odf_reflejo" t-att-src="image_data_uri(tss.x_studio_foto_odf_reflejo)" class="image"/>
+
+                    </div>
+                </td>
+                <!-- Repite este bloque para cada imagen/título -->
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                           Foto ODF Reflejo
+                        </div>
+                        <img t-if="tss.x_studio_odf_reflejo" t-att-src="image_data_uri(tss.x_studio_odf_reflejo)" class="image"/>
+                    </div>
+                </td>
+                </tr>
+
+                <tr>
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+                        <div class="especificaciones">
+                            <p>Materiales considerados: <span t-field="tss.x_studio_observaciones_3"/></p>
+                            <p>Observaciones: <span t-field="tss.x_studio_observaciones_13"/></p>
+                        </div>
+
+                    </div>
+                </td>
+                <!-- Repite este bloque para cada imagen/título -->
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+                        <div class="especificaciones">
+                            <p>Materiales considerados: <span t-field="tss.x_studio_materiales_considerados_3"/></p>
+                            <p>Observaciones: <span t-field="tss.x_studio_observaciones_14"/></p>
+                        </div>
+
+                    </div>
+                </td>
+                </tr>
+
+                </table>
+
+
+                <div style="page-break-after: always;"></div>
+
+                    <!-- Página 9 -->
+                <div style="text-align: center;">
+                <h3>Energía</h3>
+                </div>
+                <table class="img-table">
+                     <tr>
+                      <td style="text-align: center;padding: 5px; border: 1px solid #ddd;width:50%;">Layout de Energía</td>
+                       <td style="text-align: center;padding: 5px; border: 1px solid #ddd;width:50%;">Energía DCC/TDCC N°1</td>
+                    </tr>
+                <tr class="img-row">
+                <td style="padding: 5px; border: 1px solid #ddd;width:50%;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Diagrama de planta
+                        </div>
+                        <img t-if="tss.x_studio_ubicacin_cable_a_tierra_en_sala" t-att-src="image_data_uri(tss.x_studio_ubicacin_cable_a_tierra_en_sala)" class="image"/>
+
+                    </div>
+                </td>
+                <!-- Repite este bloque para cada imagen/título -->
+                <td style="padding: 5px; border: 1px solid #ddd;width:50%;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Energía DCC/TDCC General N°1:
+                        </div>
+                        <img t-if="tss.x_studio_energa_dcctdcc" t-att-src="image_data_uri(tss.x_studio_energa_dcctdcc)" class="image"/>
+                    </div>
+                </td>
+                </tr>
+
+                <tr class="img-row">
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            TDCC/GDCC
+                        </div>
+                        <img t-if="tss.x_studio_barra_a_tierra" t-att-src="image_data_uri(tss.x_studio_barra_a_tierra)" class="image"/>
+
+                    </div>
+                </td>
+                <!-- Repite este bloque para cada imagen/título -->
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Energía DCC/TDCC Detalle N°1
+                        </div>
+                        <img t-if="tss.x_studio_energa_dcctdcc_materiales" t-att-src="image_data_uri(tss.x_studio_energa_dcctdcc_materiales)" class="image"/>
+                    </div>
+                </td>
+                </tr>
+
+
+
+                <tr>
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+                        <div class="especificaciones">
+                            <p>Observaciones: <span t-field="tss.x_studio_observaciones_4"/></p>
+                        </div>
+
+                    </div>
+                </td>
+                <!-- Repite este bloque para cada imagen/título -->
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+                        <div class="especificaciones">
+                            <p>Observaciones: <span t-field="tss.x_studio_materiales_considerados_4"/></p>
+                        </div>
+
+                    </div>
+                </td>
+                </tr>
+
+                </table>
+
+
+                <div style="page-break-after: always;"></div>
+
+
+                <!-- Página 10 -->
+
+                <div style="text-align: center;">
+                <h3>Energía</h3>
+                </div>
+                <table class="img-table">
+                     <tr>
+                      <td style="text-align: center;padding: 5px; border: 1px solid #ddd;width:50%;">Energía DCC/TDCC N°2</td>
+                       <td style="text-align: center;padding: 5px; border: 1px solid #ddd;width:50%;">Energía DCC/TDCC N°3</td>
+                    </tr>
+                <tr class="img-row">
+                <td style="padding: 5px; border: 1px solid #ddd;width:50%;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Energía DCC/TDCC General N°2
+                        </div>
+                        <img t-if="tss.x_studio_energa_dcctdcc_general_n2" t-att-src="image_data_uri(tss.x_studio_energa_dcctdcc_general_n2)" class="image"/>
+
+                    </div>
+                </td>
+                <!-- Repite este bloque para cada imagen/título -->
+                <td style="padding: 5px; border: 1px solid #ddd;width:50%;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Energía DCC/TDCC General N°3
+                        </div>
+                        <img t-if="tss.x_studio_energa_dcctdcc_general_n3" t-att-src="image_data_uri(tss.x_studio_energa_dcctdcc_general_n3)" class="image"/>
+                    </div>
+                </td>
+                </tr>
+
+                <tr class="img-row">
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Energía DCC/TDCC Detalle N°2
+                        </div>
+                        <img t-if="tss.x_studio_energa_dcctdcc_detalle_n2" t-att-src="image_data_uri(tss.x_studio_energa_dcctdcc_detalle_n2)" class="image"/>
+
+                    </div>
+                </td>
+                <!-- Repite este bloque para cada imagen/título -->
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Energía DCC/TDCC Detalle N°1
+                        </div>
+                        <img t-if="tss.x_studio_energa_dcctdcc_detalle_n3" t-att-src="image_data_uri(tss.x_studio_energa_dcctdcc_detalle_n3)" class="image"/>
+                    </div>
+                </td>
+                </tr>
+
+
+
+                <tr>
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+                        <div class="especificaciones">
+                            <p>Observaciones: <span t-field="tss.x_studio_observaciones_11"/></p>
+                        </div>
+
+                    </div>
+                </td>
+                <!-- Repite este bloque para cada imagen/título -->
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+                        <div class="especificaciones">
+                            <p>Observaciones: <span t-field="tss.x_studio_observaciones_12"/></p>
+                        </div>
+
+                    </div>
+                </td>
+                </tr>
+
+                </table>
+                <div style="page-break-after: always;"></div>
+
+                    <!-- Página 11 -->
+
+                <div style="text-align: center;">
+                <h3>Proyección canaletas ópticas y escalerillas</h3>
+                </div>
+                <table class="img-table">
+                     <tr>
+                      <td style="text-align: center;padding: 5px; border: 1px solid #ddd;width:50%;">Canalización óptica Sala 1</td>
+                       <td style="text-align: center;padding: 5px; border: 1px solid #ddd;width:50%;">Escalerillas Sala 1</td>
+                    </tr>
+                <tr class="img-row">
+                <td style="padding: 5px; border: 1px solid #ddd;width:50%;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Canalización óptica N°1
+                        </div>
+                        <img t-if="tss.x_studio_canalizacin_ptica_n1" t-att-src="image_data_uri(tss.x_studio_canalizacin_ptica_n1)" class="image"/>
+
+                    </div>
+                </td>
+                <!-- Repite este bloque para cada imagen/título -->
+                <td style="padding: 5px; border: 1px solid #ddd;width:50%;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Sistema de escalerillas N°1
+                        </div>
+                        <img t-if="tss.x_studio_sistema_escalerillas_n1" t-att-src="image_data_uri(tss.x_studio_sistema_escalerillas_n1)" class="image"/>
+                    </div>
+                </td>
+                </tr>
+
+                <tr class="img-row">
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Canalización Óptica N°2
+                        </div>
+                        <img t-if="tss.x_studio_canalizacin_ptica_n2" t-att-src="image_data_uri(tss.x_studio_canalizacin_ptica_n2)" class="image"/>
+
+                    </div>
+                </td>
+                <!-- Repite este bloque para cada imagen/título -->
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Sistema de escalerillas N°2
+                        </div>
+                        <img t-if="tss.x_studio_sistema_de_escalerillas_n2" t-att-src="image_data_uri(tss.x_studio_sistema_de_escalerillas_n2)" class="image"/>
+                    </div>
+                </td>
+                </tr>
+
+                <tr class="img-row">
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Canalización Óptica N°3
+                        </div>
+                        <img t-if="tss.x_studio_canalizacin_ptica_n3" t-att-src="image_data_uri(tss.x_studio_canalizacin_ptica_n3)" class="image"/>
+
+                    </div>
+                </td>
+                <!-- Repite este bloque para cada imagen/título -->
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Sistema de escalerillas N°3
+                        </div>
+                        <img t-if="tss.x_studio_sistema_de_escalerillas_n3" t-att-src="image_data_uri(tss.x_studio_sistema_de_escalerillas_n3)" class="image"/>
+                    </div>
+                </td>
+                </tr>
+
+                </table>
+                <div style="page-break-after: always;"></div>
+
+
+           <!-- Página 12 -->
+                <div style="text-align: center;">
+                <h3>Proyección canaletas ópticas y escalerillas</h3>
+                </div>
+                <table class="img-table">
+                <tr class="img-row">
+                <td style="padding: 5px; border: 1px solid #ddd;width:50%;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Vista espacios para proyección de canaletas
+                        </div>
+                        <img t-if="tss.x_studio_canalizacin_ptica_n4" t-att-src="image_data_uri(tss.x_studio_canalizacin_ptica_n4)" class="image"/>
+
+                    </div>
+                </td>
+                <!-- Repite este bloque para cada imagen/título -->
+                <td style="padding: 5px; border: 1px solid #ddd;width:50%;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Vista espacios para proyección de canaletas
+                        </div>
+                        <img t-if="tss.x_studio_sistema_de_escalerillas_n4" t-att-src="image_data_uri(tss.x_studio_sistema_de_escalerillas_n4)" class="image"/>
+                    </div>
+                </td>
+                </tr>
+
+                <tr class="img-row">
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Diagrama de Planta
+                        </div>
+                        <img t-if="tss.x_studio_canalizacin_ptica_general" t-att-src="image_data_uri(tss.x_studio_canalizacin_ptica_general)" class="image"/>
+
+                    </div>
+                </td>
+                <!-- Repite este bloque para cada imagen/título -->
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Diagrama de Planta
+                        </div>
+                        <img t-if="tss.x_studio_sistema_escalerillas_general" t-att-src="image_data_uri(tss.x_studio_sistema_escalerillas_general)" class="image"/>
+                    </div>
+                </td>
+                </tr>
+
+
+
+                <tr>
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+                        <div class="especificaciones">
+                            <p>Observaciones: <span t-field="tss.x_studio_observaciones_15"/></p>
+                            <p>Materiales considerados: <span t-field="tss.x_studio_materiales_considerados_5"/></p>
+
+                        </div>
+
+                    </div>
+                </td>
+                <!-- Repite este bloque para cada imagen/título -->
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+                        <div class="especificaciones">
+                            <p>Observaciones: <span t-field="tss.x_studio_observaciones_16"/></p>
+                            <p>Materiales considerados: <span t-field="tss.x_studio_materiales_considerados_6"/></p>
+                        </div>
+
+                    </div>
+                </td>
+                </tr>
+
+                </table>
+                <div style="page-break-after: always;"></div>
+
+            <!-- Página 13 -->
+
+                <div style="text-align: center;">
+                <h3>Proyección canaletas ópticas y escalerillas</h3>
+                </div>
+                <table class="img-table">
+                     <tr>
+                      <td style="text-align: center;padding: 5px; border: 1px solid #ddd;width:50%;">Canalización óptica Sala 2</td>
+                       <td style="text-align: center;padding: 5px; border: 1px solid #ddd;width:50%;">Escalerillas Sala 2</td>
+                    </tr>
+                <tr class="img-row">
+                <td style="padding: 5px; border: 1px solid #ddd;width:50%;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Canalización óptica N°1
+                        </div>
+                        <img t-if="tss.x_studio_canalizacin_ptica_n1_1" t-att-src="image_data_uri(tss.x_studio_canalizacin_ptica_n1_1)" class="image"/>
+
+                    </div>
+                </td>
+                <!-- Repite este bloque para cada imagen/título -->
+                <td style="padding: 5px; border: 1px solid #ddd;width:50%;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Sistema de escalerillas N°1
+                        </div>
+                        <img t-if="tss.x_studio_sistema_de_escalerillas_n1" t-att-src="image_data_uri(tss.x_studio_sistema_de_escalerillas_n1)" class="image"/>
+                    </div>
+                </td>
+                </tr>
+
+                <tr class="img-row">
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Canalización Óptica N°2
+                        </div>
+                        <img t-if="tss.x_studio_canalizacin_ptica_n2_1" t-att-src="image_data_uri(tss.x_studio_canalizacin_ptica_n2_1)" class="image"/>
+
+                    </div>
+                </td>
+                <!-- Repite este bloque para cada imagen/título -->
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Sistema de escalerillas N°2
+                        </div>
+                        <img t-if="tss.x_studio_sistema_de_escalerillas_n2_1" t-att-src="image_data_uri(tss.x_studio_sistema_de_escalerillas_n2_1)" class="image"/>
+                    </div>
+                </td>
+                </tr>
+
+                <tr class="img-row">
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Canalización Óptica N°3
+                        </div>
+                        <img t-if="tss.x_studio_canalizacin_ptica_n3_1" t-att-src="image_data_uri(tss.x_studio_canalizacin_ptica_n3_1)" class="image"/>
+
+                    </div>
+                </td>
+                <!-- Repite este bloque para cada imagen/título -->
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Sistema de escalerillas N°3
+                        </div>
+                        <img t-if="tss.x_studio_sistema_de_escalerillas_n3_1" t-att-src="image_data_uri(tss.x_studio_sistema_de_escalerillas_n3_1)" class="image"/>
+                    </div>
+                </td>
+                </tr>
+
+                </table>
+                <div style="page-break-after: always;"></div>
+
+             <!-- Página 14 -->
+                <div style="text-align: center;">
+                <h3>Proyección canaletas ópticas y escalerillas</h3>
+                </div>
+                <table class="img-table">
+                <tr class="img-row">
+                <td style="padding: 5px; border: 1px solid #ddd;width:50%;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Canalización óptica N°4
+                        </div>
+                        <img t-if="tss.x_studio_canalizacin_ptica_n4_1" t-att-src="image_data_uri(tss.x_studio_canalizacin_ptica_n4_1)" class="image"/>
+
+                    </div>
+                </td>
+                <!-- Repite este bloque para cada imagen/título -->
+                <td style="padding: 5px; border: 1px solid #ddd;width:50%;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Sistema de Escalerillas N°4
+                        </div>
+                        <img t-if="tss.x_studio_sistema_de_escalerillas_n4_1" t-att-src="image_data_uri(tss.x_studio_sistema_de_escalerillas_n4_1)" class="image"/>
+                    </div>
+                </td>
+                </tr>
+
+                <tr class="img-row">
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Canalización óptica general
+                        </div>
+                        <img t-if="tss.x_studio_canalizacin_ptica_general_1" t-att-src="image_data_uri(tss.x_studio_canalizacin_ptica_general_1)" class="image"/>
+
+                    </div>
+                </td>
+                <!-- Repite este bloque para cada imagen/título -->
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Sistema de Escalerilla general
+                        </div>
+                        <img t-if="tss.x_studio_sistema_de_escalerilla_general" t-att-src="image_data_uri(tss.x_studio_sistema_de_escalerilla_general)" class="image"/>
+                    </div>
+                </td>
+                </tr>
+
+
+
+                <tr>
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+                        <div class="especificaciones">
+                            <p>Materiales considerados: <span t-field="tss.x_studio_materiales_considerados_13"/></p>
+
+                        </div>
+
+                    </div>
+                </td>
+                <!-- Repite este bloque para cada imagen/título -->
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+                        <div class="especificaciones">
+                            <p>Materiales considerados: <span t-field="tss.x_studio_materiales_considerados_12"/></p>
+                        </div>
+
+                    </div>
+                </td>
+                </tr>
+
+                </table>
+                <div style="page-break-after: always;"></div>
+
+
+
+
+            <!-- Página 15 -->
+
+
+                <div style="text-align: center;">
+                    <h3>Proyección canaletas ópticas y escalerillas</h3>
+                </div>
+                <table class="img-table">
+                <tr class="img-row">
+                <td style="padding: 5px; border: 1px solid #ddd;width:50%;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Diagrama Escalerillas Sala 1
+                        </div>
+                        <img t-if="tss.x_studio_diagrama_escalerillas" t-att-src="image_data_uri(tss.x_studio_diagrama_escalerillas)" class="image"/>
+
+                    </div>
+                </td>
+                <!-- Repite este bloque para cada imagen/título -->
+                <td style="padding: 5px; border: 1px solid #ddd;width:50%;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Diagrama Canaletas Ópticas Sala 1
+                        </div>
+                        <img t-if="tss.x_studio_diagrama_canaletas_pticas" t-att-src="image_data_uri(tss.x_studio_diagrama_canaletas_pticas)" class="image"/>
+                    </div>
+                </td>
+                </tr>
+
+                <tr class="img-row">
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Diagrama Escalerillas Sala 2
+                        </div>
+                        <img t-if="tss.x_studio_diagrama_escalerillas_sala_2" t-att-src="image_data_uri(tss.x_studio_diagrama_escalerillas_sala_2)" class="image"/>
+
+                    </div>
+                </td>
+                <!-- Repite este bloque para cada imagen/título -->
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Diagrama Canaletas Ópticas Sala 2
+                        </div>
+                        <img t-if="tss.x_studio_diagrama_canaletas_pticas_sala_2" t-att-src="image_data_uri(tss.x_studio_diagrama_canaletas_pticas_sala_2)" class="image"/>
+                    </div>
+                </td>
+                </tr>
+
+                <tr>
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+                        <div class="especificaciones">
+                            <p>Observaciones: <span t-field="tss.x_studio_observaciones_5"/></p>
+                        </div>
+
+                    </div>
+                </td>
+                <!-- Repite este bloque para cada imagen/título -->
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+                        <div class="especificaciones">
+                            <p>Observaciones: <span t-field="tss.x_studio_observaciones_6"/></p>
+                        </div>
+
+                    </div>
+                </td>
+                </tr>
+
+                </table>
+                <div style="page-break-after: always;"></div>
+
+            <!-- Página 16 -->
+
+             <div style="text-align: center;">
+                <h3>Red de gestión</h3>
+                </div>
+
+                <table class="img-table">
+                <tr>
+                    <td style="padding: 5px; border: 1px solid #ddd;width:50%;">
+                        <div style="text-align: center;">
+                            <div class="img-title">
+                                Tipo: <span t-field="tss.x_studio_tipo"></span><br/>
+                                Nombre Rack: <span t-field="tss.x_studio_nombre_rack_1"></span><br/>
+                                Nombre Equipo: <span t-field="tss.x_studio_nombre_sw"></span><br/>
+                                N° OPR: <span t-field="tss.x_studio_char_field_5bl_1hi6sk7an"></span>
+                            </div>
+
+                        </div>
+                    </td>
+                    <td style="padding: 5px; border: 1px solid #ddd;width:50%;">
+                        <div style="text-align: center;">
+                            <div class="img-title">
+                                Tipo: <span t-field="tss.x_studio_tipo_1"></span><br/>
+                                Nombre Rack: <span t-field="tss.x_studio_nombre_rack_2"></span><br/>
+                                Nombre Equipo: <span t-field="tss.x_studio_nombre_equipo"></span><br/>
+                                N° OPR: <span t-field="tss.x_studio_n_opr_2"></span>
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+
+             <tr class="img-row">
+                <td style="padding: 5px; border: 1px solid #ddd;width:50%;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Frente de rack (Vertical)
+                        </div>
+                        <img t-if="tss.x_studio_rack_sw_dcn_safe_horizontal" t-att-src="image_data_uri(tss.x_studio_rack_sw_dcn_safe_horizontal)" class="image"/>
+
+                    </div>
+                </td>
+                <!-- Repite este bloque para cada imagen/título -->
+                <td style="padding: 5px; border: 1px solid #ddd;width:50%;">
+                    <div style="text-align: center;">
+                        Frente de rack (Vertical)
+                        <img t-if="tss.x_studio_rack_router_safe_vertical" t-att-src="image_data_uri(tss.x_studio_rack_router_safe_vertical)" class="image"/>
+                    </div>
+                </td>
+                </tr>
+
+                <tr class="img-row">
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Foto frontal equipo de gestión
+                        </div>
+                        <img t-if="tss.x_studio_sw_safe_vertical" t-att-src="image_data_uri(tss.x_studio_sw_safe_vertical)" class="image"/>
+
+                    </div>
+                </td>
+                <!-- Repite este bloque para cada imagen/título -->
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Foto frontal equipo de gestión
+                        </div>
+                        <img t-if="tss.x_studio_router_safe_horizontal" t-att-src="image_data_uri(tss.x_studio_router_safe_horizontal)" class="image"/>
+                    </div>
+                </td>
+                </tr>
+
+                </table>
+
+
+                <div style="page-break-after: always;"></div>
+             <!-- Página 17 -->
+                <div style="text-align: center;">
+                <h3>Red de gestión</h3>
+                </div>
+                <table class="img-table">
+                <tr class="img-row">
+                <td style="padding: 5px; border: 1px solid #ddd;width:50%;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Puertas disponibles
+                        </div>
+                        <img t-if="tss.x_studio_puertas_switch" t-att-src="image_data_uri(tss.x_studio_puertas_switch)" class="image"/>
+
+                    </div>
+                </td>
+                <!-- Repite este bloque para cada imagen/título -->
+                <td style="padding: 5px; border: 1px solid #ddd;width:50%;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Puertas disponibles
+                        </div>
+                        <img t-if="tss.x_studio_puertas_consola" t-att-src="image_data_uri(tss.x_studio_puertas_consola)" class="image"/>
+                    </div>
+                </td>
+                </tr>
+
+                <tr class="img-row">
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Layout
+                        </div>
+                        <img t-if="tss.x_studio_layout_1" t-att-src="image_data_uri(tss.x_studio_layout_1)" class="image"/>
+
+                    </div>
+                </td>
+                <!-- Repite este bloque para cada imagen/título -->
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+                        <div class="img-title">
+                            Layout
+                        </div>
+                        <img t-if="tss.x_studio_layout_2" t-att-src="image_data_uri(tss.x_studio_layout_2)" class="image"/>
+                    </div>
+                </td>
+                </tr>
+
+
+
+                <tr>
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+                        <div class="especificaciones">
+                            <p>Materiales considerados: <span t-field="tss.x_studio_materiales_considerados_7"/></p>
+                        </div>
+
+                    </div>
+                </td>
+                <!-- Repite este bloque para cada imagen/título -->
+                <td style="padding: 5px; border: 1px solid #ddd;">
+                    <div style="text-align: center;">
+                        <div class="especificaciones">
+                            <p>Materiales considerados: <span t-field="tss.x_studio_materiales_considerados_9"/></p>
+                        </div>
+
+                    </div>
+                </td>
+                </tr>
+
+                </table>
+
+
+                <div style="page-break-after: always;"></div>
+
+
+
+                </t>
+                </t>
+            </t>
+        </template>
+
+        <record id="paperformat_tss_opens" model="report.paperformat">
+            <field name="name">Reporte TSS</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">40</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">30</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <record id="action_report_tss" model="ir.actions.report">
+            <field name="name">Reporte</field>
+            <field name="model">project.task</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">opens_tamatel_tss_report.report_tss</field>
+            <field name="report_file">opens_tamatel_tss_report.report_tss</field>
+            <field name="binding_model_id" ref="project.model_project_task"/>
+            <field name="binding_type">report</field>
+            <field name="print_report_name">'TSS_REPORT'</field>
+            <field name="paperformat_id" ref="paperformat_tss_opens"></field>
+        </record>
+
+    </data>
+</odoo>

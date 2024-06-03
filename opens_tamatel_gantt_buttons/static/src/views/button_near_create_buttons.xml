@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates id="template" xml:space="preserve">
+
+	<t t-name="opens_tamatel_gantt_buttons.ButtonNearCreateButtonView.Buttons" t-inherit="web_gantt.GanttView.Buttons" t-inherit-mode="primary" owl="1">
+		<xpath expr="//div[hasclass('o_gantt_buttons_container')]" position="inside">
+			<button type="button" t-on-click="customGroup1" id="custom_button_1" t-att-class="buttonClass1">
+				Team's
+			</button>
+			<button type="button" t-on-click="customGroup2" id="custom_button_2" t-att-class="buttonClass2">
+				Ventana
+			</button>
+<!--			<button type="button" t-on-click="customGroup3" class="btn btn-primary">-->
+<!--				Ventana y Team's-->
+<!--			</button>-->
+		</xpath>
+	</t>
+
+</templates>
