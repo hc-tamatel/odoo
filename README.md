@@ -1,2 +1,2 @@
-git commit --allow empty -m 'Trigger update 9'
+$ git commit --allow-empty -m 'Trigger update'; git push
 
