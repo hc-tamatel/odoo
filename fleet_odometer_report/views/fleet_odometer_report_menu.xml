@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Menú bajo Flota -> Reportes (tu XMLID) -->
+    <menuitem id="menu_fleet_odometer_report"
+              name="Odómetro (Vehículo/Conductor)"
+              parent="fleet.menu_fleet_reporting"
+              action="action_fleet_odometer_report"
+              sequence="10"
+              groups="base.group_user"/>
+</odoo>
+

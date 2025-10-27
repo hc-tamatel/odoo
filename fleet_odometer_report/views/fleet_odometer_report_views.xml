@@ -1,0 +1,84 @@
+<odoo>
+  <!-- Acción: por defecto mostrar el valor del odómetro -->
+  <record id="action_fleet_odometer_report" model="ir.actions.act_window">
+      <field name="name">Reporte de Odómetro</field>
+      <field name="res_model">fleet.odometer.report</field>
+      <field name="view_mode">graph,list,pivot</field>
+      <field name="context">{ "default_measure": "odometer_km" }</field>
+      <field name="target">current</field>
+  </record>
+
+  <!-- Search (puedes mantener tus campos) -->
+  <record id="view_fleet_odometer_report_search" model="ir.ui.view">
+      <field name="name">fleet.odometer.report.search</field>
+      <field name="model">fleet.odometer.report</field>
+      <field name="arch" type="xml">
+          <search string="Buscar">
+              <field name="license_plate" string="Patente"/>
+              <field name="driver_id"/>
+              <field name="driver_name" string="Nombre Conductor"/>
+
+              <!-- Quita filtros a campos que aún no existen -->
+              <filter name="group_by_license_plate"
+                      string="Agrupar por Patente"
+                      context="{'group_by':'license_plate'}"/>
+              <filter name="group_by_driver"
+                      string="Agrupar por Conductor"
+                      context="{'group_by':'driver_name'}"/>
+              <filter name="group_by_week"
+                      string="Agrupar por Semana"
+                      context="{'group_by':'date:week'}"/>
+
+              <separator/>
+              <group expand="0" string="Fecha">
+                  <field name="date" filter_domain="[['date','&gt;=', self], ['date','&lt;=', self]]"/>
+              </group>
+          </search>
+      </field>
+  </record>
+
+  <!-- Graph: measure = odometer_km -->
+  <record id="view_fleet_odometer_report_graph" model="ir.ui.view">
+      <field name="name">fleet.odometer.report.graph</field>
+      <field name="model">fleet.odometer.report</field>
+      <field name="arch" type="xml">
+          <graph string="Odómetro" type="bar">
+              <field name="odometer_km" type="measure"/>
+              <field name="license_plate" type="row"/>
+              <field name="driver_name" type="row"/>
+              <!-- opcional: columnas por mes -->
+              <!-- <field name="date" type="col" interval="month"/> -->
+          </graph>
+      </field>
+  </record>
+
+  <!-- List: mostrar valor de odómetro -->
+  <record id="view_fleet_odometer_report_list" model="ir.ui.view">
+      <field name="name">fleet.odometer.report.list</field>
+      <field name="model">fleet.odometer.report</field>
+      <field name="arch" type="xml">
+          <list string="Lecturas de Odómetro">
+              <field name="date"/>
+              <field name="license_plate" string="Patente"/>
+              <field name="driver_name" string="Conductor"/>
+              <field name="odometer_km" string="Odómetro (km)"/>
+              <!-- (opcional) muestra también el delta -->
+              <field name="distance_km" string="Distancia (km)" sum="Total Km"/>
+          </list>
+      </field>
+  </record>
+
+  <!-- Pivot con odometer_km -->
+  <record id="view_fleet_odometer_report_pivot" model="ir.ui.view">
+      <field name="name">fleet.odometer.report.pivot</field>
+      <field name="model">fleet.odometer.report</field>
+      <field name="arch" type="xml">
+          <pivot string="Odómetro Pivot" disable_linking="1">
+              <field name="odometer_km" type="measure"/>
+              <field name="license_plate" type="row"/>
+              <field name="driver_name" type="row"/>
+              <field name="date" type="col" interval="month"/>
+          </pivot>
+      </field>
+  </record>
+</odoo>
