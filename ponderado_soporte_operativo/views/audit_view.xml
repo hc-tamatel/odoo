@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_ticket_form_qa_inherit" model="ir.ui.view">
+            <field name="name">helpdesk.ticket.form.qa.inherit</field>
+            <field name="model">helpdesk.ticket</field>
+            <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//page[@name='description']" position="after">
+                    
+                    <page name="qa_evaluation" 
+                          string="Evaluación de Calidad"
+                          groups="ponderado_soporte_operativo.group_ponderado_manager">
+                        
+                        <group>
+                            <group>
+                                <field name="qa_complexity" widget="radio" options="{'horizontal': true}"/>
+                            </group>
+                        </group>
+
+                        <div class="row">
+                            <div class="col-4">
+                                <group string="Observación Formato">
+                                    <field name="qa_fmt_minor" decoration-danger="qa_fmt_minor > 0"/>
+                                    <field name="qa_fmt_major" decoration-danger="qa_fmt_major > 0"/>
+                                </group>
+                            </div>
+                            <div class="col-4">
+                                <group string="Observación Lenguaje">
+                                    <field name="qa_lang_minor" decoration-danger="qa_lang_minor > 0"/>
+                                    <field name="qa_lang_major" decoration-danger="qa_lang_major > 0"/>
+                                </group>
+                            </div>
+                            <div class="col-4">
+                                <group string="Observación Técnica">
+                                    <field name="qa_tech_minor" decoration-danger="qa_tech_minor > 0"/>
+                                    <field name="qa_tech_major" decoration-danger="qa_tech_major > 0"/>
+                                </group>
+                            </div>
+                        </div>
+
+                        <group class="oe_subtotal_footer oe_right">
+                            <field name="qa_final_score" widget="percentpie"/>
+                            <div class="oe_inline">
+                                <label for="qa_final_score" string="Resultado Final: " style="font-weight: bold;"/>
+                                <field name="qa_final_score" readonly="1" force_save="1" nolabel="1" class="oe_inline" style="font-size: 18px; font-weight: bold;"/>
+                            </div>
+                        </group>
+
+                    </page>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="view_ticket_tree_qa_inherit" model="ir.ui.view">
+            <field name="name">helpdesk.ticket.tree.qa.inherit</field>
+            <field name="model">helpdesk.ticket</field>
+            <field name="inherit_id" ref="helpdesk.helpdesk_tickets_view_tree"/>
+            <field name="arch" type="xml">
+                
+                <field name="stage_id" position="before">
+                    <field name="qa_final_score" 
+                           string="Calidad" 
+                           widget="progressbar" 
+                           optional="show"
+                            avg="Promedio Calidad"
+                           groups="ponderado_soporte_operativo.group_ponderado_manager"/>
+                </field>
+
+            </field>
+        </record>
+    </data>
+</odoo>
