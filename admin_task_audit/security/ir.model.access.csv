@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_audit_checklist_line_user,audit.checklist.line.user,model_audit_checklist_line,project.group_project_user,1,1,0,0
+access_audit_checklist_line_manager,audit.checklist.line.manager,model_audit_checklist_line,project.group_project_manager,1,1,1,1

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_task_form_audit_inherit" model="ir.ui.view">
+            <field name="name">project.task.form.audit.inherit</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//page[@name='description_page']" position="after">
+                    <page name="audit_admin"
+                          string="Auditoría / Checklist">
+
+                        <div class="mb-3" groups="project.group_project_manager">
+                            <button name="action_load_audit_checklist" 
+                                    type="object" 
+                                    string="🔄 Cargar Checklist" 
+                                    class="btn btn-secondary me-2"
+                                    confirm="¿Estás seguro? Esto reemplazará la lista actual."/>
+                            
+                            <button name="action_clean_audit_checklist" 
+                                    type="object" 
+                                    string="🗑️ Limpiar Todo" 
+                                    class="btn btn-danger"
+                                    confirm="¿Estás seguro de que quieres eliminar todas las líneas de auditoría?"/>
+                        </div>
+
+                        <field name="checklist_line_ids" nolabel="1">
+                            <list editable="bottom" 
+                                  decoration-success="score == '100'" 
+                                  decoration-danger="score == '0'">
+                                
+                                <field name="sequence" widget="handle"/>
+                                <field name="name" string="Ítem a Evaluar" readonly="1"/>
+                                
+                                <field name="is_checked" 
+                                       groups="project.group_project_manager"/>
+                                
+                                <field name="user_id" 
+                                       widget="many2one_avatar_user"
+                                       options="{'no_create': True}"
+                                       invisible="not is_checked"
+                                       groups="project.group_project_manager"/>
+                                
+                                <field name="is_realizado"/>
+
+                                <field name="attachment_ids" 
+                                       widget="many2many_binary" 
+                                       string="Adjuntos (Fotos)"
+                                       invisible="not is_checked"/>
+
+                                
+                                <field name="score" 
+                                       required="1" 
+                                       invisible="not is_checked"
+                                       groups="project.group_project_manager"/>
+                            </list>
+                        </field>
+
+                        <group class="oe_subtotal_footer" groups="project.group_project_manager">
+                            <field name="audit_final_avg" widget="progressbar"/>
+                        </group>
+
+                    </page>
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>
