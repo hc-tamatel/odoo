@@ -7,7 +7,8 @@
             <field name="inherit_id" ref="project.view_task_form2"/>
             <field name="arch" type="xml">
 
-                <xpath expr="//page[@name='description_page']" position="after">
+                <xpath expr="//page[@name='sub_tasks_page']" position="after">
+                    
                     <page name="audit_admin"
                           string="Auditoría / Checklist">
 
@@ -48,7 +49,6 @@
                                        widget="many2many_binary" 
                                        string="Adjuntos (Fotos)"
                                        invisible="not is_checked"/>
-
                                 
                                 <field name="score" 
                                        required="1" 
