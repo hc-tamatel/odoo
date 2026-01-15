@@ -228,7 +228,7 @@ class ProjectTask(models.Model):
         string="Promedio Auditoría", 
         compute="_compute_audit_final_avg", 
         store=True,
-        group_operator="avg"
+        aggregator="avg"
     )
 
     @api.depends('checklist_line_ids.score', 'checklist_line_ids.is_checked')
