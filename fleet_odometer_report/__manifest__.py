@@ -2,7 +2,7 @@
 {
     "name": "Fleet Odometer Report",
     "summary": "Reporte de odómetro por vehículo o conductor con filtros por fecha",
-    "version": "18.0.1.0.0",
+    "version": "1.0",
     "author": "Paulo-Hernandez","Tamatel SPA"
     "license": "LGPL-3",
     "depends": ["fleet"],

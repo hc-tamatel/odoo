@@ -28,11 +28,12 @@
 
                         <field name="checklist_line_ids" nolabel="1">
                             <list editable="bottom" 
-                                  decoration-success="score == '100'" 
-                                  decoration-danger="score == '0'">
+                                  decoration-success="score == '75' or score == '100'" 
+                                  decoration-warning="is_realizado and score not in ('75', '100')"
+                                  decoration-danger="score == '0' and not is_realizado">
                                 
                                 <field name="sequence" widget="handle"/>
-                                <field name="name" string="Ítem a Evaluar" readonly="1"/>
+                                <field name="name" string="Ítem a Evaluar"/>
                                 
                                 <field name="is_checked" 
                                        groups="project.group_project_manager"/>
@@ -48,10 +49,14 @@
                                 <field name="attachment_ids" 
                                        widget="many2many_binary" 
                                        string="Adjuntos (Fotos)"
-                                       invisible="not is_checked"/>
+                                       invisible="not is_checked"
+                                       groups="project.group_project_manager"/>
                                 
                                 <field name="score" 
-                                       required="1" 
+                                       invisible="not is_checked"
+                                       groups="project.group_project_manager"/>
+
+                                <field name="observaciones" 
                                        invisible="not is_checked"
                                        groups="project.group_project_manager"/>
                             </list>

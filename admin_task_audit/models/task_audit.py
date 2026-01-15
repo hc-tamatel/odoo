@@ -7,6 +7,9 @@ from odoo.exceptions import ValidationError
 # ==============================================================================
 AUDIT_QUESTIONS = {
     'H0 - TSS': [
+        "Adjunto Fotografías del Sitio",
+        "Adjunto Fotografías del Acceso",
+        "Adjunto Fotografías de Sala",
         "Diagrama Layout de Planta",
         "Proyecciones para la Habilitación de nuevos espacios (Power off y/o Desinstalación)",
         "Confirmación de Slots para la inserción de Tarjetas en Subrack Existentes",
@@ -40,6 +43,9 @@ AUDIT_QUESTIONS = {
     ],
     
     'H1 - Instalación Parcial': [
+        "Adjunto Fotografías del Sitio",
+        "Adjunto Fotografías del Acceso",
+        "Adjunto Fotografías de Sala",
         "Diagrama Layout de Planta",
         "Instalación de Base Antisísmica. Si Aplica.",
         "Instalación Rack/Subrack (Plataforma de Datos y/o Transporte, Incluye Rack ODF si Aplica)",
@@ -54,6 +60,9 @@ AUDIT_QUESTIONS = {
     ],
     
     'H2.A - Instalación Final Plataforma de Servicio': [
+        "Adjunto Fotografías del Sitio",
+        "Adjunto Fotografías del Acceso",
+        "Adjunto Fotografías de Sala",
         "Adecuación de Frente de Equipo y/o Inserción de Nuevas Tarjetas en Equipos Existentes según diseño",
         "Cableados Internos",
         "Tendido de Gestión ",
@@ -69,11 +78,17 @@ AUDIT_QUESTIONS = {
     ],
 
     'H2.B - Instalación Final Plataforma de Transporte': [
+        "Adjunto Fotografías del Sitio",
+        "Adjunto Fotografías del Acceso",
+        "Adjunto Fotografías del Sala",
         "Tendido de Jumpers Ópticos de Línea a ODF",
         "Conexiones ópticas y habilitación de enlace óptico",
     ],
 
     'H3 - Habilitación de Capacidad (Lambdas y/o Reflejos)': [
+        "Adjunto Fotografías del Sitio",
+        "Adjunto Fotografías del Acceso",
+        "Adjunto Fotografías de Sala",
         "Diagrama Layout de Planta",
         "Opción 1: Tendido de jumpers para Habilitación Nva Lambda: desde lado DWDM a Dirección Local (Mux/Demux)",
         "Opción 2: Tendidos para Continuidad óptica de Lambdas (Entre puertos Mux/Demux entre 2 Direcciones Locales)",
@@ -89,6 +104,9 @@ AUDIT_QUESTIONS = {
     ],
 
     'H4 - Habilitación de Servicios': [
+        "Adjunto Fotografías del Sitio",
+        "Adjunto Fotografías del Acceso",
+        "Adjunto Fotografías de Sala",
         "Diagrama Layout de Planta",
         "Tendidos y conexiones de fibra óptica a ODFs de Interconexión. Si Aplica",
         "Tendidos y Conexiones de fibra óptica a ODFs Reflejos Plataforma de Transporte",
@@ -97,12 +115,18 @@ AUDIT_QUESTIONS = {
     ],
 
     'H4* -Integración/Ampliación Plataforma de Servicios': [
+        "Adjunto Fotografías del Sitio",
+        "Adjunto Fotografías del Acceso",
+        "Adjunto Fotografías de Sala",
         "Conexiones de jumpers en lado de la Plataforma de Servicios.",
         "Pruebas. Si Aplica",
     ],
 
     # HITO 5
     'H5 - Migraciones': [
+        "Adjunto Fotografías del Sitio",
+        "Adjunto Fotografías del Acceso",
+        "Adjunto Fotografías de Sala",
         "Tendido de Jumpers Ópticos de Servicios",
         "Tendido de cable Coaxial",
         "Elaboración y Tendidos de Cables UTPs de Servicios",
@@ -111,6 +135,9 @@ AUDIT_QUESTIONS = {
 
     # HITO 6
     'H6 - Desinstalación y Retiro': [
+        "Adjunto Fotografías del Sitio",
+        "Adjunto Fotografías del Acceso",
+        "Adjunto Fotografías del Sala",
         "Supervición de Power OFF",
         "Ejecución de Power OFF",
         "Desconexión de Alimentadores",
@@ -161,6 +188,8 @@ class AuditChecklistLine(models.Model):
         default='0',
         required=True
     )
+
+    observaciones = fields.Text(string="Observaciones")
 
     @api.onchange('is_checked')
     def _onchange_is_checked(self):
@@ -219,23 +248,26 @@ class ProjectTask(models.Model):
         if not current_hito:
             return
 
-        questions = AUDIT_QUESTIONS.get(current_hito)
-        if not questions:
+        master_questions = AUDIT_QUESTIONS.get(current_hito, [])
+        if not master_questions:
             return
 
-        self.checklist_line_ids.unlink()
+        existing_names = self.checklist_line_ids.mapped('name')
 
         new_lines = []
-        for index, question in enumerate(questions):
-            new_lines.append({
-                'task_id': self.id,
-                'name': question,
-                'sequence': index + 1,
-                'is_checked': False,
-                'score': '0'
-            })
         
-        self.env['audit.checklist.line'].create(new_lines)
+        for index, question in enumerate(master_questions):
+            if question not in existing_names:
+                new_lines.append({
+                    'task_id': self.id,
+                    'name': question,
+                    'sequence': index + 1, 
+                    'is_checked': False,
+                    'score': '0'
+                })
+        
+        if new_lines:
+            self.env['audit.checklist.line'].create(new_lines)
 
     def action_clean_audit_checklist(self):
         self.ensure_one()
