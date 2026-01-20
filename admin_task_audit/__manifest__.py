@@ -1,6 +1,6 @@
 {
     'name': 'Admin Task Audit',
-    'version': '18.0.1.0',
+    'version': '19.0.1.0',
     'category': 'Project',
     'summary': 'Auditoría y puntaje de tareas para administradores',
     'depends': ['project'],
