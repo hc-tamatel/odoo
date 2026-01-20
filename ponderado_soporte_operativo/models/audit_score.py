@@ -17,7 +17,7 @@ class HelpdeskTicket(models.Model):
     qa_tech_minor = fields.Integer(string='Técnica: Menores', default=0)
     qa_tech_major = fields.Integer(string='Técnica: Mayores', default=0)
 
-    qa_final_score = fields.Float(string='Calificación Final', compute='_compute_qa_score', store=True, group_operator=False)
+    qa_final_score = fields.Float(string='Calificación Final', compute='_compute_qa_score', store=True, aggregator=False)
 
     is_quoted = fields.Boolean(string="Cotizado", default=False, tracking=True)
 

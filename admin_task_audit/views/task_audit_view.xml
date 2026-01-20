@@ -12,20 +12,28 @@
                     <page name="audit_admin"
                           string="Auditoría / Checklist">
 
-                        <div class="mb-3" groups="project.group_project_manager">
+                        <div class="d-flex align-items-center gap-2 mb-3" groups="project.group_project_manager">
                             <button name="action_load_audit_checklist" 
                                     type="object" 
-                                    string="🔄 Cargar Checklist" 
-                                    class="btn btn-secondary me-2"
+                                    string="Cargar Checklist" 
+                                    icon="fa-list-alt"
+                                    class="btn btn-secondary shadow-sm"
                                     confirm="¿Estás seguro? Esto reemplazará la lista actual."/>
-                            
+    
+                            <button name="action_remove_unchecked_audit_lines" 
+                                    type="object" 
+                                    string="Borrar No Requeridos" 
+                                    icon="fa-eraser" 
+                                    class="btn btn-warning text-white shadow-sm"
+                                    confirm="¿Desea eliminar todos los ítems que no están marcados como requeridos?"/>
+    
                             <button name="action_clean_audit_checklist" 
                                     type="object" 
-                                    string="🗑️ Limpiar Todo" 
-                                    class="btn btn-danger"
+                                    string="Limpiar Todo" 
+                                    icon="fa-trash"
+                                    class="btn btn-danger shadow-sm"
                                     confirm="¿Estás seguro de que quieres eliminar todas las líneas de auditoría?"/>
                         </div>
-
                         <field name="checklist_line_ids" nolabel="1">
                             <list editable="bottom" 
                                   decoration-success="score == '75' or score == '100'" 

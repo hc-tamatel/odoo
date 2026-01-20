@@ -44,6 +44,7 @@ AUDIT_QUESTIONS = {
             "Adjunto Fotografías del Acceso",
             "Adjunto Fotografías de Sala",
             "Diagrama Layout de Planta",
+            "Mediciones de Consumo",
             "Verificar Disponibilidad de Empalme",
             "Verificar Disponibilidad de Grupo Electrogeno",
             "Verificar Disponibilidad en Fuentes de CC",
@@ -93,9 +94,16 @@ AUDIT_QUESTIONS = {
             "Adjunto Fotografías del Sitio",
             "Adjunto Fotografías del Acceso",
             "Adjunto Fotografías de Sala",
+            "Diagrama Layout de Planta",
+            "Mediciones de Consumo",
             "Instalación de Alimentadores",
             "Conexión de Alimentadores",
             "Ejecución de Power ON",
+            "Intalación de Breakers",
+            "Cambio de Breakers",
+            "Pruebas de Redundancia",
+            "Identificación de punto de aterramiento",
+            
         ]
     },
 
@@ -186,6 +194,8 @@ AUDIT_QUESTIONS = {
             "Adjunto Fotografías del Sitio",
             "Adjunto Fotografías del Acceso",
             "Adjunto Fotografías de Sala",
+            "Diagrama Layout de Planta",
+            "Mediciones de Consumo",
             "Ejecución de Power OFF",
             "Desconexión de Alimentadores",
             "Retiro de Alimentadores",
@@ -326,3 +336,10 @@ class ProjectTask(models.Model):
     def action_clean_audit_checklist(self):
         self.ensure_one()
         self.checklist_line_ids.unlink()
+
+    def action_remove_unchecked_audit_lines(self):
+        """ Elimina las líneas del checklist donde is_checked es False """
+        self.ensure_one()
+        # Filtramos las líneas que NO están marcadas como requeridas
+        lines_to_remove = self.checklist_line_ids.filtered(lambda l: not l.is_checked)
+        lines_to_remove.unlink()
