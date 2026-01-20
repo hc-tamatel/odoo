@@ -30,8 +30,8 @@
                       context="{'group_by':'date:week'}"/>
 
               <separator/>
-              <group expand="0" string="Fecha">
-                  <field name="date" filter_domain="[['date','&gt;=', self], ['date','&lt;=', self]]"/>
+              <group expand="0" string="Agrupar Por">
+                  <filter string="Fecha" name="groupby_date" context="{'group_by': 'date'}"/>
               </group>
           </search>
       </field>
