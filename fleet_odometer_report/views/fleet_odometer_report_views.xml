@@ -17,22 +17,6 @@
               <field name="license_plate" string="Patente"/>
               <field name="driver_id"/>
               <field name="driver_name" string="Nombre Conductor"/>
-
-              <!-- Quita filtros a campos que aún no existen -->
-              <filter name="group_by_license_plate"
-                      string="Agrupar por Patente"
-                      context="{'group_by':'license_plate'}"/>
-              <filter name="group_by_driver"
-                      string="Agrupar por Conductor"
-                      context="{'group_by':'driver_name'}"/>
-              <filter name="group_by_week"
-                      string="Agrupar por Semana"
-                      context="{'group_by':'date:week'}"/>
-
-              <separator/>
-              <group expand="0" string="Fecha">
-                  <field name="date" filter_domain="[['date','&gt;=', self], ['date','&lt;=', self]]"/>
-              </group>
           </search>
       </field>
   </record>
