@@ -3,8 +3,8 @@
     "name": "Fleet Odometer Report",
     "summary": "Reporte de odómetro por vehículo o conductor con filtros por fecha",
     "version": "1.0",
-    "author": "Paulo-Hernandez","Tamatel SPA"
-    "license": "LGPL-3",
+    "author": "Tamatel SPA",
+    "category": "Fleet",
     "depends": ["fleet"],
     "data": [
         "security/ir.model.access.csv",
@@ -14,5 +14,5 @@
     ],
     'installable': True,
     'application': False,
-    'license': 'OPL-1',
+    "license": "LGPL-3",
 }

@@ -4,6 +4,7 @@
     'category': 'Project',
     'summary': 'Auditoría y puntaje de tareas para administradores',
     'depends': ['project'],
+    "author": "Tamatel SPA",
     'data': [
         'security/ir.model.access.csv',
         'views/task_audit_view.xml',

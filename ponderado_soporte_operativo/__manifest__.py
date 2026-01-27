@@ -2,7 +2,7 @@
     'name': 'Ponderado Soporte Operativo',
     'version': '1.0',
     'summary': 'Evaluación de calidad con cálculo ponderado en Tareas',
-    'author': 'Paulo Hernandez',
+    "author": "Tamatel SPA",
     'category': 'Services/Helpdesk',
     'depends': ['base', 'project', 'helpdesk'],
     'data': [

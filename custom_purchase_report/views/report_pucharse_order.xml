@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_purchase_custom" model="ir.actions.report">
+        <field name="name">Orden de Compra Tamatel</field>
+        <field name="model">purchase.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">custom_purchase_report.report_purchaseorder_custom_view</field>
+        <field name="report_file">custom_purchase_report.report_purchaseorder_custom_view</field>
+        <field name="print_report_name">'Orden de Compra - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="purchase.model_purchase_order"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_purchaseorder_custom_view">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <t t-set="o" t-value="o.with_context(lang=o.partner_id.lang)"/>
+                    
+                    <t t-set="address">
+                        <div t-field="o.partner_id" t-options='{"widget": "contact", "fields": ["address", "name", "phone", "vat"], "no_marker": True}'/>
+                    </t>
+
+                    <div class="page">
+                        <div class="mt-4 mb-3">
+                            <h2 style="font-weight: bold;">
+                                <span t-if="o.state in ['draft', 'sent', 'to approve']">Solicitud de cotización #</span>
+                                <span t-if="o.state in ['purchase', 'done']">Orden de compra #</span>
+                                <span t-field="o.name"/>
+                            </h2>
+                        </div>
+
+                        <div class="row mt-4 mb-4" style="border-top: 1px solid black; padding-top: 10px;">
+                            <div class="col-4">
+                                <strong>Comprador:</strong> <span t-field="o.user_id"/><br/>
+                                <t t-if="'x_studio_solicitantes' in o._fields">
+                                    <strong>Solicitante:</strong> <span t-field="o.x_studio_solicitantes"/>
+                                </t><br/>
+                                <t t-if="'x_studio_aprobado_por' in o._fields">
+                                    <strong>Aprobado por:</strong> <span t-field="o.x_studio_aprobado_por"/>
+                                </t>
+                            </div>
+                            <div class="col-4">
+                                <strong>Ref. Pedido:</strong> <span t-field="o.partner_ref"/><br/>
+                                <strong>Cotización Prov:</strong> <span t-field="o.origin"/><br/>
+                                <t t-if="'x_studio_nmero_sdm' in o._fields">
+                                    <strong>N° SDM:</strong> <span t-field="o.x_studio_nmero_sdm"/>
+                                </t>
+                            </div>
+                            <div class="col-4 text-end">
+                                <strong>Fecha orden:</strong> <span t-field="o.date_approve" t-options='{"widget": "date"}'/><br/>
+                                <strong>Llegada est.:</strong> <span t-field="o.date_planned" t-options='{"widget": "date"}'/>
+                            </div>
+                        </div>
+
+                        <table class="table table-sm o_main_table mt-4">
+                            <thead>
+                                <tr style="background-color: #f2f2f2;">
+                                    <th class="text-start">DESCRIPCIÓN</th>
+                                    <th class="text-end">CANT</th>
+                                    <th class="text-end">PRECIO</th>
+                                    <th class="text-end">DESC.</th>
+                                    <th class="text-end">IMPORTE</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="o.order_line" t-as="line">
+                                    <tr>
+                                        <td class="text-start"><span t-field="line.name"/></td>
+                                        <td class="text-end"><span t-field="line.product_qty"/> <span t-field="line.product_uom_id.name"/></td>
+                                        <td class="text-end"><span t-field="line.price_unit"/></td>
+                                        <td class="text-end"><span t-field="line.discount"/>%</td>
+                                        <td class="text-end"><span t-field="line.price_subtotal" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/></td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+
+                        <div class="row justify-content-end mt-3">
+                            <div class="col-4">
+                                <table class="table table-sm table-borderless" style="border-top: 2px solid black;">
+                                    <t t-set="tax_totals" t-value="o.tax_totals"/>
+                                    <t t-set="currency" t-value="o.currency_id"/>
+                                    <t t-call="account.document_tax_totals"/>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="mt-5" t-if="'x_studio_proyecto' in o._fields" style="page-break-inside: avoid;">
+                            <h5 style="background-color: #e9ecef; padding: 5px; border-left: 5px solid #333; font-weight: bold;">Información del Proyecto</h5>
+                            <table class="table table-bordered table-sm">
+                                <tr>
+                                    <td class="bg-light" width="20%"><strong>Macro Proyecto:</strong></td>
+                                    <td width="30%"><span t-field="o.x_studio_macro_proyecto"/></td>
+                                    <td class="bg-light" width="20%"><strong>Proyecto:</strong></td>
+                                    <td width="30%"><span t-field="o.x_studio_proyecto"/></td>
+                                </tr>
+                                <tr>
+                                    <td class="bg-light"><strong>Subproyecto:</strong></td>
+                                    <td><span t-field="o.x_studio_subproyectos"/></td>
+                                    <td class="bg-light"><strong>Sitio:</strong></td>
+                                    <td><span t-field="o.x_studio_sitios"/></td>
+                                </tr>
+                            </table>
+
+                            <table class="table table-bordered table-sm mt-2 text-center">
+                                <thead>
+                                    <tr class="bg-light">
+                                        <th width="33%">CENTRO DE COSTO</th>
+                                        <th width="33%">LÍDER DE PROYECTO</th>
+                                        <th width="33%">INGENIERO</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span t-field="o.x_studio_centro_de_costo"/></td>
+                                        <td><span t-field="o.x_studio_lider_de_proyecto"/></td>
+                                        <td><span t-field="o.x_studio_ingeniero"/></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>
