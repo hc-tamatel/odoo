@@ -9,7 +9,6 @@
                 <field name="tm_macro_project_id"/>
                 <field name="tm_project_id" domain="[('macro_project_id', '=', tm_macro_project_id)]"/>
                 <field name="tm_subproject_id" domain="[('project_id', '=', tm_project_id)]"/>
-                <field name="tm_site_id" domain="[('subproject_id', '=', tm_subproject_id)]"/>
             </xpath>
         </field>
     </record>

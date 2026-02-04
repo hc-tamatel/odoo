@@ -24,6 +24,5 @@ class Site(models.Model):
     _name = 'tm.site'
     _description = 'Sitio de la Actividad'
     _rec_name = 'name'
-
     name = fields.Char(string='Nombre del Sitio', required=True)
-    subproject_id = fields.Many2one('tm.subproject', string='Subproyecto Padre', required=True)
+    code = fields.Char(string='Código del Sitio')
