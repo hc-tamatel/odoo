@@ -1,0 +1,16 @@
+<odoo>
+    <record id="view_picking_form_tamatel_projects" model="ir.ui.view">
+        <field name="name">stock.picking.form.tamatel.projects</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group/group/field[@name='origin']" position="after">
+                <separator string="Asignación de Proyecto" colspan="2"/>
+                <field name="tm_macro_project_id"/>
+                <field name="tm_project_id" domain="[('macro_project_id', '=', tm_macro_project_id)]"/>
+                <field name="tm_subproject_id" domain="[('project_id', '=', tm_project_id)]"/>
+                <field name="tm_site_id" domain="[('subproject_id', '=', tm_subproject_id)]"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

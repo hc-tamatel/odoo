@@ -1,0 +1,94 @@
+<odoo>
+    <record id="view_tm_macro_project_list" model="ir.ui.view">
+        <field name="name">tm.macro.project.list</field>
+        <field name="model">tm.macro.project</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="name"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_tm_macro_project" model="ir.actions.act_window">
+        <field name="name">Macro Proyectos</field>
+        <field name="res_model">tm.macro.project</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="view_tm_project_list" model="ir.ui.view">
+        <field name="name">tm.project.list</field>
+        <field name="model">tm.project</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="name"/>
+                <field name="macro_project_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_tm_project" model="ir.actions.act_window">
+        <field name="name">Proyectos</field>
+        <field name="res_model">tm.project</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="view_tm_subproject_list" model="ir.ui.view">
+        <field name="name">tm.subproject.list</field>
+        <field name="model">tm.subproject</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="name"/>
+                <field name="project_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_tm_subproject" model="ir.actions.act_window">
+        <field name="name">Subproyectos</field>
+        <field name="res_model">tm.subproject</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="view_tm_site_list" model="ir.ui.view">
+        <field name="name">tm.site.list</field>
+        <field name="model">tm.site</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="name"/>
+                <field name="subproject_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_tm_site" model="ir.actions.act_window">
+        <field name="name">Sitios</field>
+        <field name="res_model">tm.site</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+
+    <menuitem id="menu_tm_projects_root" 
+              name="Gestión de Proyectos" 
+              parent="stock.menu_stock_config_settings" 
+              sequence="50"/>
+
+    <menuitem id="menu_tm_macro_project" 
+              action="action_tm_macro_project" 
+              parent="menu_tm_projects_root" 
+              sequence="1"/>
+
+    <menuitem id="menu_tm_project" 
+              action="action_tm_project" 
+              parent="menu_tm_projects_root" 
+              sequence="2"/>
+
+    <menuitem id="menu_tm_subproject" 
+              action="action_tm_subproject" 
+              parent="menu_tm_projects_root" 
+              sequence="3"/>
+    
+    <menuitem id="menu_tm_site" 
+              action="action_tm_site" 
+              parent="menu_tm_projects_root" 
+              sequence="4"/>
+</odoo>

@@ -1,0 +1,26 @@
+<odoo>
+    <record id="view_stock_quant_list_tamatel" model="ir.ui.view">
+        <field name="name">stock.quant.list.tamatel</field>
+        <field name="model">stock.quant</field>
+        <field name="inherit_id" ref="stock.view_stock_quant_tree_inventory_editable"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='product_id']" position="after">
+                <field name="tm_macro_project_id" optional="show"/>
+                <field name="tm_project_id" optional="show"/>
+                <field name="tm_subproject_id" optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_stock_quant_search_tamatel" model="ir.ui.view">
+        <field name="name">stock.quant.search.tamatel</field>
+        <field name="model">stock.quant</field>
+        <field name="inherit_id" ref="stock.quant_search_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group" position="inside">
+                <filter string="Macro Proyecto" name="groupby_macro" context="{'group_by': 'tm_macro_project_id'}"/>
+                <filter string="Proyecto" name="groupby_project" context="{'group_by': 'tm_project_id'}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

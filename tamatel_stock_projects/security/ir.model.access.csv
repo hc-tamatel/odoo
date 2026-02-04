@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_tm_macro_project,tm.macro.project,model_tm_macro_project,base.group_user,1,1,1,1
+access_tm_project,tm.project,model_tm_project,base.group_user,1,1,1,1
+access_tm_subproject,tm.subproject,model_tm_subproject,base.group_user,1,1,1,1
+access_tm_site,tm.site,model_tm_site,base.group_user,1,1,1,1
