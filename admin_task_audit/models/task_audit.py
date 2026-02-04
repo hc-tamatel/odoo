@@ -265,6 +265,79 @@ class AuditChecklistLine(models.Model):
             'target': 'current',
         }
 
+    # ==========================================================================
+    # TIMER FUNCTIONALITY
+    # ==========================================================================
+
+    timer_state = fields.Selection(
+        [
+            ('stopped', 'Detenido'),
+            ('running', 'En Progreso'),
+            ('paused', 'Pausado')
+        ],
+        string="Estado del Temporizador",
+        default='stopped',
+        copy=False
+    )
+
+    timer_start = fields.Datetime(string="Inicio del Temporizador", copy=False)
+    
+    duration = fields.Float(string="Duración (Minutos)", default=0.0, copy=False)
+
+    display_duration = fields.Char(
+        string="Tiempo Transcurrido",
+        compute="_compute_display_duration",
+        store=False
+    )
+
+    def action_timer_start(self):
+        """ Inicia o reanuda el temporizador """
+        for record in self:
+            if record.timer_state != 'running':
+                record.timer_start = fields.Datetime.now()
+                record.timer_state = 'running'
+
+    def action_timer_pause(self):
+        """ Pausa el temporizador y acumula el tiempo transcurrido """
+        for record in self:
+            if record.timer_state == 'running' and record.timer_start:
+                delta = fields.Datetime.now() - record.timer_start
+                # Convertir a minutos
+                minutes = delta.total_seconds() / 60.0
+                record.duration += minutes
+                record.timer_start = False
+                record.timer_state = 'paused'
+
+    def action_timer_stop(self):
+        """ Detiene el temporizador y acumula el tiempo final """
+        for record in self:
+            if record.timer_state == 'running' and record.timer_start:
+                delta = fields.Datetime.now() - record.timer_start
+                minutes = delta.total_seconds() / 60.0
+                record.duration += minutes
+                record.timer_start = False
+            
+            # Si estaba pausado, ya se sumó el tiempo, solo cambiamos estado
+            record.timer_state = 'stopped'
+
+    @api.depends('duration', 'timer_start', 'timer_state')
+    def _compute_display_duration(self):
+        for record in self:
+            current_minutes = record.duration
+            
+            # Si corre actualmente, sumar el tiempo "vivo" (aproximado al momento de leer)
+            if record.timer_state == 'running' and record.timer_start:
+                delta = fields.Datetime.now() - record.timer_start
+                current_minutes += delta.total_seconds() / 60.0
+            
+            # Convertir minutos a HH:MM:SS
+            total_seconds = int(current_minutes * 60)
+            hours = total_seconds // 3600
+            minutes = (total_seconds % 3600) // 60
+            seconds = total_seconds % 60
+            
+            record.display_duration = '{:02d}:{:02d}:{:02d}'.format(hours, minutes, seconds)
+
 class ProjectTask(models.Model):
     _inherit = 'project.task'
 
@@ -281,6 +354,12 @@ class ProjectTask(models.Model):
         aggregator="avg"
     )
 
+    audit_total_duration_text = fields.Char(
+        string="Tiempo Total Registrado",
+        compute="_compute_audit_total_duration",
+        store=False
+    )
+
     # Nota: x_studio_hito y x_studio_area_interna son campos de Studio,
     # no necesitan re-declararse aquí si ya existen en la base de datos,
     # pero los usamos en la lógica.
@@ -295,6 +374,19 @@ class ProjectTask(models.Model):
                 record.audit_final_avg = total_score / len(active_items)
             else:
                 record.audit_final_avg = 0.0
+
+    @api.depends('checklist_line_ids.duration')
+    def _compute_audit_total_duration(self):
+        for record in self:
+            total_minutes = sum(post.duration for post in record.checklist_line_ids)
+            
+            # Convertir minutos a HH:MM:SS
+            total_seconds = int(total_minutes * 60)
+            hours = total_seconds // 3600
+            minutes = (total_seconds % 3600) // 60
+            seconds = total_seconds % 60
+            
+            record.audit_total_duration_text = '{:02d}:{:02d}:{:02d}'.format(hours, minutes, seconds)
 
     def action_load_audit_checklist(self):
         self.ensure_one()

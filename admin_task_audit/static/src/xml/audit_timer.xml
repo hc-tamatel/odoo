@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="admin_task_audit.AuditTimerField" owl="1">
+        <span class="badge rounded-pill text-bg-info" t-if="props.record.data.timer_state == 'running'">
+            <i class="fa fa-clock-o me-1"/> <t t-esc="state.displayTime"/>
+        </span>
+        <span class="text-muted" t-else="">
+            <t t-esc="state.displayTime"/>
+        </span>
+    </t>
+</templates>

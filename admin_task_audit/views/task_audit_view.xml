@@ -42,6 +42,27 @@
                                 
                                 <field name="sequence" widget="handle"/>
                                 <field name="name" string="Ítem a Evaluar"/>
+
+                                <!-- Timer Controls -->
+                                <field name="timer_state" column_invisible="True"/>
+                                <!-- Se requieren duration y timer_start en la vista para que el JS las lea -->
+                                <field name="duration" column_invisible="True"/>
+                                <field name="timer_start" column_invisible="True"/>
+                                
+                                <field name="display_duration" string="Tiempo" widget="audit_timer"/>
+
+                                <button name="action_timer_start" type="object" 
+                                        icon="fa-play" title="Iniciar"
+                                        invisible="timer_state == 'running'"/>
+                                
+                                <button name="action_timer_pause" type="object" 
+                                        icon="fa-pause" title="Pausar"
+                                        invisible="timer_state != 'running'"/>
+                                
+                                <button name="action_timer_stop" type="object" 
+                                        icon="fa-stop" title="Detener"
+                                        invisible="timer_state == 'stopped'"/>
+                                <!-- End Timer Controls -->
                                 
                                 <field name="is_checked" 
                                        groups="project.group_project_manager"/>
@@ -72,6 +93,7 @@
 
                         <group class="oe_subtotal_footer" groups="project.group_project_manager">
                             <field name="audit_final_avg" widget="progressbar"/>
+                            <field name="audit_total_duration_text" widget="badge" decoration-info="1"/>
                         </group>
 
                     </page>
